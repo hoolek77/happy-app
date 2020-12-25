@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://breaking-news/./src/index.js"],"names":["console","log"],"mappings":";;;;AAAAA,OAAO,CAACC,GAAR,CAAY,OAAZ,E","file":"main.js","sourcesContent":["console.log('hello')\n"],"sourceRoot":""}
