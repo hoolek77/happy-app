@@ -1,5 +1,5 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
-const CopyPlugin = require('copy-webpack-plugin')
 module.exports = {
   mode: 'development',
   entry: './src/index.js',
@@ -47,8 +47,13 @@ module.exports = {
     port: 8080,
   },
   plugins: [
-    new CopyPlugin({
-      patterns: [{ from: 'src/index.html', to: './' }],
+    new HtmlWebpackPlugin({
+      title: 'Breaking News 2.0',
+      template: path.resolve(__dirname, './src/index.html'),
+      inject: 'body',
+      minify: {
+        //collapseWhitespace: true,
+      },
     }),
   ],
 }
