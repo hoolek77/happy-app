@@ -1,5 +1,11 @@
+const path = require('path')
 module.exports = {
   mode: 'development',
+  entry: './src/index.js',
+  output: {
+    filename: 'main.js',
+    path: path.resolve(__dirname, 'dist'),
+  },
   module: {
     rules: [
       {
@@ -33,6 +39,10 @@ module.exports = {
   },
   devtool: 'source-map',
   devServer: {
-    contentBase: './dist',
+    contentBase: './src',
+    compress: true,
+    hot: true,
+    open: true,
+    port: 8080,
   },
 }
