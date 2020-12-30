@@ -1,4 +1,4 @@
 import NewsAPI from './newsApi'
-import NewsList from './newsList'
+import NewsController from './newsController'
 
-export { NewsAPI, NewsList }
+export { NewsAPI, NewsController }

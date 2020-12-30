@@ -12,7 +12,7 @@ export default class NewsAPI extends API {
     }
   }
 
-  fetchNews() {
+  fetch() {
     let options = {
       headers: this.defaultHeaders,
     }
