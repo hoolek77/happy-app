@@ -1,3 +1,5 @@
+import 'regenerator-runtime/runtime'
+
 import { NewsAPI, NewsController, NewsListView } from './views/'
 import { NEWS_API } from './environment'
 
