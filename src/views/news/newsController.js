@@ -1,6 +1,8 @@
 import NewsList from './newsList'
 import News from './news'
 
+import './news.css'
+
 export default class NewsController {
   constructor(newsApi, newsListView) {
     this.newsApi = newsApi
