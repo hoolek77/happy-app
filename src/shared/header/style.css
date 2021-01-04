@@ -1,0 +1,8 @@
+.header {
+  padding-top: 2rem;
+}
+
+.header__title {
+  font-family: 'Kenia', cursive;
+  font-size: 4rem;
+}

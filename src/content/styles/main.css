@@ -1,0 +1,5 @@
+@import './global.css';
+@import '../../shared/header/style.css';
+@import '../../shared/navigation/nav.css';
+@import '../../shared/spinner/style.css';
+@import '../../shared/footer/style.css';

@@ -1,20 +1,20 @@
 import View from '../../shared/view'
 
-export default class NewsListView extends View {
+export default class SportView extends View {
   constructor() {
     super()
-    this.setTitle('News')
+    this.setTitle('Sport')
   }
 
   getHeaderText() {
-    return 'News'
+    return 'Sport'
   }
 
   async getContent() {
     const delay = (ms) => new Promise((res) => setTimeout(res, ms))
     await delay(2000)
     return `
-        <p>News content loaded</p>
+        <p>Sport content loaded</p>
     `
   }
 }

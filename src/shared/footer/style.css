@@ -1,0 +1,48 @@
+.footer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 2rem 6rem;
+}
+
+.footer__header {
+  font-size: 3.6rem;
+}
+
+.authors__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.author {
+  align-items: center;
+  background-color: rgb(19, 57, 119);
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  height: 150px;
+  justify-content: center;
+  margin: 4rem 1rem;
+  padding: 2rem;
+  position: relative;
+  text-align: center;
+  width: 150px;
+}
+
+.author__position {
+  bottom: 50%;
+  transform: translateY(50%);
+  color: var(--primary-text-color);
+  display: block;
+  opacity: 0;
+  position: absolute;
+  transition: bottom 0.3s linear, opacity 0.3s linear;
+}
+
+.author:hover .author__position {
+  bottom: -15px;
+  opacity: 1;
+  transform: translateY(100%);
+}
