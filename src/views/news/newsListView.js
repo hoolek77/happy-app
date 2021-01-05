@@ -1,4 +1,5 @@
 import View from '../../shared/view'
+
 import { formatDate } from '../../utils'
 
 import './news.css'

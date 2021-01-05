@@ -14,9 +14,11 @@ export default class SportContentProvider extends ContentProvider {
   }
 
   async getContent() {
+    // to simulate long running operation
     const delay = (ms) => new Promise((res) => setTimeout(res, ms))
     await delay(2000)
+    const data = {} // data fetch from api
 
-    return this.view.render()
+    return this.view.render(data)
   }
 }
