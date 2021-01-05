@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,10 +8,76 @@
       http-equiv="Content-Security-Policy"
       content="upgrade-insecure-requests"
     />
-
-    <title>Breaking News 2.0</title>
+    <title>Happy App</title>
   </head>
   <body>
-    <main></main>
+    <div class="wrapper">
+      <header class="header">
+        <a class="header__title" href="/">Happy App</a>
+
+        <nav class="nav">
+          <input type="checkbox" id="menu-toggle" class="nav__menu-toggle" />
+          <label class="nav__menu-button" for="menu-toggle"></label>
+
+          <ul class="nav-list">
+            <li class="nav-list__item nav-list__item--home">
+              <a class="nav-list__link" href="./">Home</a>
+            </li>
+            <li class="nav-list__item nav-list__item--news">
+              <a class="nav-list__link" href="./#/news">News</a>
+            </li>
+            <li class="nav-list__item nav-list__item--sport">
+              <a class="nav-list__link" href="./#/sport">Sport</a>
+            </li>
+            <li class="nav-list__item nav-list__item--weather">
+              <a class="nav-list__link" href="./#/weather">Weather</a>
+            </li>
+            <li class="nav-list__item nav-list__item--crypto">
+              <a class="nav-list__link" href="./#/crypto">Crypto</a>
+            </li>
+            <li class="nav-list__item nav-list__item--food">
+              <a class="nav-list__link" href="./#/food">Food</a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+
+      <main>
+        <section class="view">
+          <h1 class="view__header"></h1>
+
+          <div class="view__content"></div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <h2 class="footer__header">Authors</h2>
+
+        <ul class="authors__list">
+          <li class="author">
+            Piotr Dybowski<span class="author__position"
+              >Mentor<br />Client</span
+            >
+          </li>
+          <li class="author">
+            Natalia Cichońska<span class="author__position">Developer</span>
+          </li>
+          <li class="author">
+            Jędrzej Matuszewski<span class="author__position">Developer</span>
+          </li>
+          <li class="author">
+            Szymon Kin<span class="author__position">Developer</span>
+          </li>
+          <li class="author">
+            Bartosz Białecki<span class="author__position"
+              >Product Owner<br />Developer</span
+            >
+          </li>
+          <li class="author">
+            Ireneusz Bednorz<span class="author__position">Developer</span>
+          </li>
+        </ul>
+      </footer>
+    </div>
   </body>
 </html>
