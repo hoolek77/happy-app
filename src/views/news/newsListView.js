@@ -1,4 +1,5 @@
 import View from '../../shared/view'
+import { formatDate } from '../../utils'
 
 import './news.css'
 
@@ -16,16 +17,23 @@ export default class NewsListView extends View {
   }
 
   createListItem(newsData) {
+    const {
+      urlToImage: imageUrl = '',
+      title,
+      publishedAt,
+      description,
+    } = newsData
+
     const listItem = document.createElement('li')
     listItem.className = 'news__item'
 
     const html = `
         <header class="news__header">
-            <img src="${newsData.urlToImage}" alt="">
-            <h2 class="news__title">${newsData.title}</h2>
-            <p class="news__info">Published at <span class="news__published-date">${newsData.publishedAt}</span> by <span class="news__author">${newsData.author}</span></p>
+            <img src="${imageUrl}" alt="">
+            <h2 class="news__title">${title}</h2>
+            <p class="news__info">Published at ${formatDate(publishedAt)}</p>
         </header>
-        <p class="news__description">${newsData.description}</p>
+        <p class="news__description">${description}</p>
     `
 
     listItem.innerHTML = html
