@@ -1,16 +1,3 @@
-import View from '../../shared/view'
+import HomeContentProvider from './homeContentProvider'
 
-export default class HomeView extends View {
-  constructor() {
-    super()
-    this.setTitle('Happy App')
-  }
-
-  getHeaderText() {
-    return ''
-  }
-
-  async getContent() {
-    return ''
-  }
-}
+export { HomeContentProvider }

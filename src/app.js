@@ -2,9 +2,11 @@ import './content/styles/main.css'
 
 import { Router, Navigator } from './shared/navigation'
 
-import HomeView from './views/home'
-import NewsListView from './views/news/'
-import SportView from './views/sport/'
+import { NEWS_API } from './environment'
+
+import { HomeContentProvider } from './views/home'
+import { NewsAPI, NewsContentProvider, NewsListView } from './views/news/'
+import { SportContentProvider, SportView } from './views/sport/'
 
 export default class App {
   constructor() {
@@ -14,9 +16,18 @@ export default class App {
   _setupNavigation() {
     this.router = new Router()
 
-    this.router.addRoute('/', HomeView)
-    this.router.addRoute('/news', NewsListView)
-    this.router.addRoute('/sport', SportView)
+    this.router.addRoute('/', new HomeContentProvider())
+
+    const newsApi = new NewsAPI(NEWS_API.API_BASE_URL, NEWS_API.API_KEY)
+    this.router.addRoute(
+      '/news',
+      new NewsContentProvider(newsApi, new NewsListView())
+    )
+
+    this.router.addRoute(
+      '/sport',
+      new SportContentProvider(null, new SportView())
+    )
 
     this.navigator = new Navigator(this.router)
   }

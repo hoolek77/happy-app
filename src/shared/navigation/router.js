@@ -1,5 +1,5 @@
 import { isTypeOfClass } from '../../utils'
-import View from '../view'
+import ContentProvider from '../contentProvider'
 
 export default class Router {
   constructor() {
@@ -13,22 +13,24 @@ export default class Router {
     this._onRouteChange()
   }
 
-  addRoute(path, view) {
-    if (!path || !view) {
-      throw new Error('Please provide route path and view.')
+  addRoute(path, contentProvider) {
+    if (!path || !contentProvider) {
+      throw new Error('Please provide route path and content provider.')
     }
 
     if (typeof path !== 'string') {
       throw new Error('Path must be type of string.')
     }
 
-    if (!isTypeOfClass(view, View)) {
-      throw new Error('View must be instance of class View.')
+    if (!(contentProvider instanceof ContentProvider)) {
+      throw new Error(
+        'Content provider must be instance of class ContentProvider.'
+      )
     }
 
     const route = {
       path,
-      view,
+      contentProvider,
       link: path.slice(1),
     }
 
@@ -52,8 +54,8 @@ export default class Router {
     })
   }
 
-  _fireRouteChangedEvent(view, link) {
-    this.eventsHandlers.forEach((handler) => handler(view, link))
+  _fireRouteChangedEvent(contentProvider, link) {
+    this.eventsHandlers.forEach((handler) => handler(contentProvider, link))
   }
 
   _onRouteChange() {
@@ -73,9 +75,7 @@ export default class Router {
       return
     }
 
-    const view = new foundRoute.view()
-
-    this._fireRouteChangedEvent(view, foundRoute.link)
+    this._fireRouteChangedEvent(foundRoute.contentProvider, foundRoute.link)
   }
 
   _pathToRegex(path) {

@@ -3,3 +3,4 @@
  */
 
 export * from './exampleView/index.js'
+export * from './news'
