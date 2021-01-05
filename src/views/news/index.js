@@ -1,5 +1,5 @@
 import NewsAPI from './newsApi'
-import NewsController from './newsController'
+import NewsContentProvider from './newsContentProvider'
 import NewsListView from './newsListView'
 
-export { NewsAPI, NewsController, NewsListView }
+export { NewsAPI, NewsContentProvider, NewsListView }

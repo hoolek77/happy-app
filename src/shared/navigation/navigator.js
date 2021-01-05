@@ -1,5 +1,5 @@
-import HomeView from '../../views/home'
-
+import { HomeContentProvider } from '../../views/home'
+import { getSpinner } from '../spinner'
 export default class Navigator {
   constructor(router) {
     this.router = router
@@ -45,12 +45,12 @@ export default class Navigator {
     })
   }
 
-  _onRouteChange(view, link) {
+  _onRouteChange(contentProvider, link) {
     let isMovingNavigation = false
 
     this._clearActiveMenuLinks()
 
-    if (this._shouldShowMenuTiles(view)) {
+    if (this._shouldShowMenuTiles(contentProvider)) {
       this._hideHomeTile()
       this._showMenuTiles()
     } else {
@@ -66,12 +66,15 @@ export default class Navigator {
 
     setTimeout(
       async () => {
-        this._setViewHeader(view.getHeaderText())
-        this._clearViewContent(view)
+        this._setViewHeader(contentProvider.getHeaderText())
+        this._clearViewContent()
         this.mainViewElement.classList.add(
           this.mainContentAppearAnimationClassName
         )
-        this.viewContentElement.innerHTML = await view.getContent()
+
+        contentProvider.setDocumentTitle(contentProvider.getTitle())
+        this.viewContentElement.innerHTML = await contentProvider.getContent()
+
         this.mainViewElement.classList.remove(
           this.mainContentAppearAnimationClassName
         )
@@ -80,16 +83,16 @@ export default class Navigator {
     )
   }
 
-  _clearViewContent(view) {
-    this.viewContentElement.innerHTML = view.getSpinner()
+  _clearViewContent() {
+    this.viewContentElement.innerHTML = getSpinner()
   }
 
   _setViewHeader(text) {
     this.viewHeaderElement.textContent = text
   }
 
-  _shouldShowMenuTiles(view) {
-    return view instanceof HomeView
+  _shouldShowMenuTiles(contentProvider) {
+    return contentProvider instanceof HomeContentProvider
   }
 
   _shouldMoveNavigation() {
