@@ -1,12 +1,15 @@
 import './content/styles/main.css'
 
 import { Router, Navigator } from './shared/navigation'
-
-import { NEWS_API } from './environment'
-
+import { NEWS_API, SPORT_API } from './environment'
 import { HomeContentProvider } from './views/home'
 import { NewsAPI, NewsContentProvider, NewsListView } from './views/news/'
-import { SportContentProvider, SportView } from './views/sport/'
+
+import {
+  SportAPI,
+  SportContentProvider,
+  SportView,
+} from './views/sport/index.js'
 import { WeatherContentProvider } from './views/weather/index.js'
 
 export default class App {
@@ -20,6 +23,7 @@ export default class App {
     this.router.addRoute('/', new HomeContentProvider())
 
     const newsApi = new NewsAPI(NEWS_API.API_BASE_URL, NEWS_API.API_KEY)
+    const countryApi = new SportAPI(SPORT_API.API_BASE_URL, SPORT_API.API_KEY)
     this.router.addRoute(
       '/news',
       new NewsContentProvider(newsApi, new NewsListView())
@@ -27,7 +31,7 @@ export default class App {
 
     this.router.addRoute(
       '/sport',
-      new SportContentProvider(null, new SportView())
+      new SportContentProvider(countryApi, new SportView())
     )
 
     this.router.addRoute('/weather', new WeatherContentProvider())
