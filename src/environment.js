@@ -3,8 +3,8 @@
  */
 
 export const WEATHER_API = {
-  API_BASE_URL: '',
-  API_KEY: '',
+  API_BASE_URL: 'https://api.openweathermap.org/data/2.5/forecast?',
+  API_KEY: '049c0b70b613c00368278d09a928afeb',
 }
 
 export const NEWS_API = {
