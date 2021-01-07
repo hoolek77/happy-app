@@ -67,13 +67,24 @@ export default class Navigator {
     setTimeout(
       async () => {
         this._setViewHeader(contentProvider.getHeaderText())
-        this._clearViewContent()
+        this._showSpinner()
         this.mainViewElement.classList.add(
           this.mainContentAppearAnimationClassName
         )
 
         contentProvider.setDocumentTitle(contentProvider.getTitle())
-        this.viewContentElement.innerHTML = await contentProvider.getContent()
+        let viewContent = await contentProvider.getContent()
+        this._clearViewContent()
+
+        if (viewContent) {
+          if (typeof viewContent === 'string') {
+            const wrapperElement = document.createElement('div')
+            wrapperElement.insertAdjacentHTML('afterbegin', viewContent)
+            viewContent = wrapperElement
+          }
+
+          this.viewContentElement.appendChild(viewContent)
+        }
 
         this.mainViewElement.classList.remove(
           this.mainContentAppearAnimationClassName
@@ -84,6 +95,10 @@ export default class Navigator {
   }
 
   _clearViewContent() {
+    this.viewContentElement.innerHTML = ''
+  }
+
+  _showSpinner() {
     this.viewContentElement.innerHTML = getSpinner()
   }
 

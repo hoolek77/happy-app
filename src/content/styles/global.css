@@ -27,10 +27,15 @@ body {
   padding: 0;
 }
 
+body.modal-open {
+  height: 100vh;
+  overflow-y: hidden;
+}
+
 img {
   display: block;
   height: auto;
-  max-width: 100%;
+  width: 100%;
 }
 
 body {

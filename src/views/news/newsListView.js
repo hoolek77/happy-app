@@ -1,24 +1,47 @@
 import View from '../../shared/view'
+import CardPreview from '../../shared/cardPreview'
 
 import { formatDate } from '../../utils'
 
 import './news.css'
 
+const newsClassName = 'news'
+const newsItemClassName = 'news__item'
+const newsItemSelector = `.${newsItemClassName}`
+const newsHeaderClassName = 'news__header'
+const newsTitleClassName = 'news__title'
+const newsInfoClassName = 'news__info'
+const newsDescriptionClassName = 'news__description'
 export default class NewsListView extends View {
+  constructor() {
+    super()
+
+    //this._bindEvents()
+  }
+
   render(data) {
     const ulElement = document.createElement('ul')
-    ulElement.className = 'news'
+    ulElement.className = newsClassName
 
     data.news.forEach((newsItem) => {
-      const listItem = this.createListItem(newsItem)
+      const listItem = this._createListItem(newsItem)
       ulElement.appendChild(listItem)
     })
 
-    return ulElement.outerHTML
+    return ulElement
   }
 
-  createListItem(newsData) {
+  _bindEvents() {
+    addDelegatedEventListener(
+      'click',
+      newsItemSelector,
+      this._handleNewsItemClick.bind(this)
+    )
+  }
+
+  _createListItem(newsData) {
     const {
+      id,
       urlToImage: imageUrl = '',
       title,
       publishedAt,
@@ -26,19 +49,34 @@ export default class NewsListView extends View {
     } = newsData
 
     const listItem = document.createElement('li')
-    listItem.className = 'news__item'
+    listItem.addEventListener('click', this._handleNewsItemClick.bind(this))
+    listItem.className = newsItemClassName
+    listItem.dataset.id = id
 
     const html = `
-        <header class="news__header">
+        <header class="${newsHeaderClassName}">
             <img src="${imageUrl}" alt="">
-            <h2 class="news__title">${title}</h2>
-            <p class="news__info">Published at ${formatDate(publishedAt)}</p>
+            <h2 class="${newsTitleClassName}">${title}</h2>
+            <p class="${newsInfoClassName}">Published at ${formatDate(
+      publishedAt
+    )}</p>
         </header>
-        <p class="news__description">${description}</p>
+        <p class="${newsDescriptionClassName}">${description}</p>
     `
 
     listItem.innerHTML = html
 
     return listItem
+  }
+
+  async _handleNewsItemClick(e) {
+    const newsItemElement = e.currentTarget
+
+    if (newsItemElement) {
+      this.eventListener.onNewsItemClicked(+newsItemElement.dataset.id)
+
+      const cardPreview = new CardPreview(newsItemElement)
+      cardPreview.showCardPreview()
+    }
   }
 }

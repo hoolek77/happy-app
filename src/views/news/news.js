@@ -1,13 +1,9 @@
 export default class News {
-  constructor({
-    author,
-    title,
-    description,
-    content,
-    publishedAt,
-    url,
-    urlToImage,
-  }) {
+  constructor(
+    id,
+    { author, title, description, content, publishedAt, url, urlToImage }
+  ) {
+    this.id = id
     this.author = author
     this.title = title
     this.description = description
