@@ -13,12 +13,6 @@ const newsTitleClassName = 'news__title'
 const newsInfoClassName = 'news__info'
 const newsDescriptionClassName = 'news__description'
 export default class NewsListView extends View {
-  constructor() {
-    super()
-
-    //this._bindEvents()
-  }
-
   render(data) {
     const ulElement = document.createElement('ul')
     ulElement.className = newsClassName
@@ -29,14 +23,6 @@ export default class NewsListView extends View {
     })
 
     return ulElement
-  }
-
-  _bindEvents() {
-    addDelegatedEventListener(
-      'click',
-      newsItemSelector,
-      this._handleNewsItemClick.bind(this)
-    )
   }
 
   _createListItem(newsData) {
