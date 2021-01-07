@@ -1,13 +1,8 @@
 import ContentProvider from '../../shared/contentProvider'
 
-import NewsList from './newsList'
-import News from './news'
-
 export default class NewsContentProvider extends ContentProvider {
   constructor(api, view) {
     super(api, view)
-
-    this.newsListModel = new NewsList()
   }
 
   getTitle() {
@@ -19,18 +14,11 @@ export default class NewsContentProvider extends ContentProvider {
   }
 
   async getContent() {
-    try {
-      let { status = '', articles = [] } = await this.api.fetch()
-      console.log(articles)
-      if (status === 'ok') {
-        this.newsListModel.addNews(articles.map((item) => new News(item)))
+    // to simulate long running operation
+    const delay = (ms) => new Promise((res) => setTimeout(res, ms))
+    await delay(2000)
+    const data = {} // data fetch from api
 
-        return this.view.render(this.newsListModel)
-      }
-    } catch (err) {
-      console.error(err)
-    }
-
-    return ''
+    return this.view.render(data)
   }
 }
