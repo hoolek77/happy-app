@@ -7,6 +7,7 @@ import { NEWS_API } from './environment'
 import { HomeContentProvider } from './views/home'
 import { NewsAPI, NewsContentProvider, NewsListView } from './views/news/'
 import { SportContentProvider, SportView } from './views/sport/'
+import { WeatherContentProvider } from './views/weather/index.js'
 
 export default class App {
   constructor() {
@@ -28,6 +29,8 @@ export default class App {
       '/sport',
       new SportContentProvider(null, new SportView())
     )
+
+    this.router.addRoute('/weather', new WeatherContentProvider())
 
     this.navigator = new Navigator(this.router)
   }
