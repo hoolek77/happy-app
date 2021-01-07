@@ -1,6 +1,6 @@
 import API from '../../utils/api'
 
-export default class SportAPI extends API {
+export class SportAPI extends API {
   constructor(baseUrl, apiKey) {
     super(baseUrl, apiKey)
   }

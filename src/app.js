@@ -1,13 +1,15 @@
 import './content/styles/main.css'
 
 import { Router, Navigator } from './shared/navigation'
-
 import { NEWS_API, SPORT_API } from './environment'
-
 import { HomeContentProvider } from './views/home'
 import { NewsAPI, NewsContentProvider, NewsListView } from './views/news/'
 
-import { SportAPI, SportContentProvider, SportView } from './views/sport/'
+import {
+  SportAPI,
+  SportContentProvider,
+  SportView,
+} from './views/sport/index.js'
 import { WeatherContentProvider } from './views/weather/index.js'
 
 export default class App {

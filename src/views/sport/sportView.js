@@ -1,10 +1,8 @@
 import View from '../../shared/view'
 
-import { formatDate } from '../../utils'
-
 import './sport.css'
 
-export default class CountryView extends View {
+export class SportView extends View {
   render(countries, leagues, teams) {
     const div = document.createElement('div')
     const selectCountryElement = document.createElement('select')
@@ -18,7 +16,6 @@ export default class CountryView extends View {
     })
 
     selectLeagueElement.className = 'league'
-    console.log(leagues)
     leagues.leagues.forEach((countryItem) => {
       const listItem = this.createListItem(countryItem)
       selectLeagueElement.appendChild(listItem)

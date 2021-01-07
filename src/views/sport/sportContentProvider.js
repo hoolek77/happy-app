@@ -9,7 +9,7 @@ import League from './leagues'
 import TeamsList from './teamsList'
 import Team from './team'
 
-export default class SportContentProvider extends ContentProvider {
+export class SportContentProvider extends ContentProvider {
   constructor(api, view) {
     super(api, view)
 
