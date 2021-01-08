@@ -84,6 +84,7 @@ export default class CardPreview {
   }
 
   _handleWindowResize() {
+    this._initCardInitialPosition()
     this._setPreviewDefaultSize()
 
     this._moveAndResizeCardElementClone(
