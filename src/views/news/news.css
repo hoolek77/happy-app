@@ -34,13 +34,13 @@
 .news__info {
   color: rgba(98, 98, 98, 0.73);
   font-size: 1.4rem;
-  padding: 0 2rem 1.5rem;
+  padding: 0 2rem;
 }
 
 .news__description,
 .news__content,
 .news__article-link {
-  padding: 0 2rem 2rem;
+  padding: 2rem;
 }
 
 .news__item.is-expanded {

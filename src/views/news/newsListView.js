@@ -69,11 +69,15 @@ export default class NewsListView extends View {
         ${
           expandedContent
             ? `<p class="${contentClassName}">${stripHTMLTags(
-                content
-              )}</p><p class="${linkClassName}"><a class="link" href="${url}" target="_blank">Read the article</a></p>`
+                this._removeCharsInfoFromContent(content)
+              )}</p><p class="${linkClassName}"><a class="link" href="${url}" target="_blank">Read the whole article</a></p>`
             : `<p class="${newsDescriptionClassName}">${description}</p>`
         }
     `
+  }
+
+  _removeCharsInfoFromContent(content) {
+    return content.replace(/\[\+\d+ chars\]/, '')
   }
 
   async _handleNewsItemClick(e) {
