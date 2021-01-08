@@ -8,16 +8,15 @@ const MEDIUM_SCREEN_BREAKPOINT = 980
 const SMALL_SCREEN_BREAKPOINT = 768
 
 export default class CardPreview {
-  constructor(
-    cardElement,
-    previewContent = null,
-    previewWidth = '65vw',
-    previewHeight = '90vh'
-  ) {
+  constructor(cardElement, previewContent = null, options = {}) {
+    this.options = {
+      previewWidth: '65vw',
+      previewHeight: '90vh',
+      ...options,
+    }
+
     this.cardElement = cardElement
     this.previewContent = previewContent
-    this.previewWidth = previewWidth
-    this.previewHeight = previewHeight
     this.cardElementClone = cardElement.cloneNode(true)
 
     this.previewVisibleClassName = 'is-expanded'
@@ -29,7 +28,7 @@ export default class CardPreview {
     this._hidePreview = this._hidePreview.bind(this)
     this._handleWindowResize = this._handleWindowResize.bind(this)
 
-    this._setPreviewDefaultSize()
+    this._setPreviewSize()
     this._bindEvents()
     this._initCardInitialPosition()
     this._setCardElementCloneInitialPosition()
@@ -85,7 +84,7 @@ export default class CardPreview {
 
   _handleWindowResize() {
     this._initCardInitialPosition()
-    this._setPreviewDefaultSize()
+    this._setPreviewSize()
 
     this._moveAndResizeCardElementClone(
       '50%',
@@ -96,7 +95,10 @@ export default class CardPreview {
     )
   }
 
-  _setPreviewDefaultSize() {
+  _setPreviewSize() {
+    this.previewWidth = this.options.previewWidth
+    this.previewHeight = this.options.previewHeight
+
     if (window.innerWidth <= BIG_SCREEN_BREAKPOINT) {
       this.previewWidth = '80vw'
     }
