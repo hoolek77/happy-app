@@ -3,6 +3,10 @@ import { getClosestParentElement } from '../../utils'
 import '../closeButton/style.css'
 import './style.css'
 
+const BIG_SCREEN_BREAKPOINT = 1280
+const MEDIUM_SCREEN_BREAKPOINT = 980
+const SMALL_SCREEN_BREAKPOINT = 768
+
 export default class CardPreview {
   constructor(
     cardElement,
@@ -23,7 +27,10 @@ export default class CardPreview {
     this.closeButtonClassName = 'close-button'
 
     this._hidePreview = this._hidePreview.bind(this)
+    this._handleWindowResize = this._handleWindowResize.bind(this)
 
+    this._setPreviewDefaultSize()
+    this._bindEvents()
     this._initCardInitialPosition()
     this._setCardElementCloneInitialPosition()
     this._addCardElementCloneToPage()
@@ -66,6 +73,41 @@ export default class CardPreview {
     }
 
     this._bindClickOutsidePreviewEvent()
+  }
+
+  _bindEvents() {
+    window.addEventListener('resize', this._handleWindowResize)
+  }
+
+  _unbindEvents() {
+    window.removeEventListener('resize', this._handleWindowResize)
+  }
+
+  _handleWindowResize() {
+    this._setPreviewDefaultSize()
+
+    this._moveAndResizeCardElementClone(
+      '50%',
+      '50%',
+      this.previewWidth,
+      this.previewHeight,
+      true
+    )
+  }
+
+  _setPreviewDefaultSize() {
+    if (window.innerWidth <= BIG_SCREEN_BREAKPOINT) {
+      this.previewWidth = '80vw'
+    }
+
+    if (window.innerWidth <= MEDIUM_SCREEN_BREAKPOINT) {
+      this.previewWidth = '90vw'
+    }
+
+    if (window.innerWidth <= SMALL_SCREEN_BREAKPOINT) {
+      this.previewWidth = '100vw'
+      this.previewHeight = '100vh'
+    }
   }
 
   _initCardInitialPosition() {
@@ -162,6 +204,7 @@ export default class CardPreview {
     document.querySelector('body').classList.remove(this.modalOpenClass)
 
     this._unbindClickOutsidePreviewEvent()
+    this._unbindEvents()
   }
 
   _bindClickOutsidePreviewEvent() {
