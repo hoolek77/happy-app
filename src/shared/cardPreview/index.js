@@ -1,10 +1,17 @@
-import '../closeButton/style.css'
+import { getClosestParentElement } from '../../utils'
 
+import '../closeButton/style.css'
 import './style.css'
 
 export default class CardPreview {
-  constructor(cardElement, previewWidth = '65vw', previewHeight = '90vh') {
+  constructor(
+    cardElement,
+    previewContent = null,
+    previewWidth = '65vw',
+    previewHeight = '90vh'
+  ) {
     this.cardElement = cardElement
+    this.previewContent = previewContent
     this.previewWidth = previewWidth
     this.previewHeight = previewHeight
     this.cardElementClone = cardElement.cloneNode(true)
@@ -12,13 +19,14 @@ export default class CardPreview {
     this.previewVisibleClassName = 'is-expanded'
     this.modalOpenClass = 'modal-open'
     this.previewOverlayClassName = 'card-preview__overlay'
+    this.closeButtonContainerClassName = 'close-button-container'
+    this.closeButtonClassName = 'close-button'
 
     this._hidePreview = this._hidePreview.bind(this)
 
     this._initCardInitialPosition()
     this._setCardElementCloneInitialPosition()
     this._addCardElementCloneToPage()
-    this._addCloseButton()
     this._addOverlay()
 
     this.cardElementClone.classList.add(this.previewVisibleClassName)
@@ -27,6 +35,12 @@ export default class CardPreview {
   async showCardPreview() {
     document.querySelector('body').classList.add(this.modalOpenClass)
 
+    if (this.previewContent) {
+      this._hideOriginalCardContent().then(() =>
+        this._removeOriginalCardContent()
+      )
+    }
+
     await this._moveAndResizeCardElementClone(
       '50%',
       '50%',
@@ -34,6 +48,22 @@ export default class CardPreview {
       this.previewHeight,
       true
     )
+
+    this._addCloseButton()
+
+    if (this.previewContent) {
+      if (typeof this.previewContent === 'string') {
+        this.cardElementClone.insertAdjacentHTML(
+          'afterbegin',
+          this.previewContent
+        )
+      } else {
+        this.cardElementClone.insertAdjacentElement(
+          'afterbegin',
+          this.previewContent
+        )
+      }
+    }
 
     this._bindClickOutsidePreviewEvent()
   }
@@ -68,9 +98,10 @@ export default class CardPreview {
 
   _addCloseButton() {
     this.closeButton = document.createElement('button')
-    this.closeButton.className = 'close-button'
+    this.closeButton.className = this.closeButtonClassName
 
     const wrapper = document.createElement('div')
+    wrapper.className = this.closeButtonContainerClassName
 
     wrapper.style = `
         position: absolute;
@@ -96,7 +127,18 @@ export default class CardPreview {
     })
   }
 
-  async _hidePreview() {
+  _isCloseButtonClicked(element) {
+    return element.classList.contains(this.closeButtonClassName)
+  }
+
+  async _hidePreview(e) {
+    if (
+      getClosestParentElement(e.target, `.${this.previewVisibleClassName}`) &&
+      !this._isCloseButtonClicked(e.target)
+    ) {
+      return
+    }
+
     this.closeButton.remove()
 
     requestAnimationFrame(() => {
@@ -156,5 +198,24 @@ export default class CardPreview {
 
       setTimeout(resolve, duration)
     })
+  }
+
+  _hideOriginalCardContent(duration = 300) {
+    return new Promise((resolve) => {
+      ;[...this.cardElementClone.children].forEach((child) => {
+        requestAnimationFrame(() => {
+          child.style.transition = `opacity ${duration}ms linear`
+          child.style.opacity = 0
+        })
+      })
+
+      setTimeout(resolve, duration)
+    })
+  }
+
+  _removeOriginalCardContent() {
+    ;[...this.cardElementClone.children].forEach(
+      (child) => (child.style.display = 'none')
+    )
   }
 }

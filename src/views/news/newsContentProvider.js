@@ -42,7 +42,7 @@ export default class NewsContentProvider extends ContentProvider {
     return ''
   }
 
-  onNewsItemClicked(id) {
+  getClickedNews(id) {
     const news = this.newsListModel.findNews(id)
 
     return news
