@@ -10,3 +10,19 @@ export const formatDate = (dateString) => {
 
   return new Date(dateString).toLocaleDateString(undefined, options)
 }
+
+export const stripHTMLTags = (string) => {
+  return string.replace(/<\/?[^>]+(>|$)/g, '')
+}
+
+export const getClosestParentElement = (elem, selector) => {
+  while (elem && elem !== document) {
+    if (elem.matches(selector)) {
+      return elem
+    }
+
+    elem = elem.parentNode
+  }
+
+  return null
+}

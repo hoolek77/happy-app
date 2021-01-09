@@ -1,0 +1,40 @@
+.close-button {
+  background: none;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  height: 32px;
+  outline: none;
+  padding: 0.5em;
+  position: relative;
+  width: 32px;
+}
+
+.close-button::before {
+  background-color: #fff;
+  bottom: 5px;
+  content: '';
+  display: block;
+  left: 13px;
+  position: absolute;
+  top: 5px;
+  transform: rotate(45deg);
+  width: 2px;
+}
+
+.close-button::after {
+  background-color: #fff;
+  content: '';
+  display: block;
+  height: 2px;
+  left: 5px;
+  position: absolute;
+  right: 5px;
+  top: 13px;
+  transform: rotate(45deg);
+}
+
+.close-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
