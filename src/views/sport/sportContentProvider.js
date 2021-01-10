@@ -27,7 +27,6 @@ export class SportContentProvider extends ContentProvider {
   }
 
   async getContent() {
-    // delete push push
     try {
       let { data: countries = [] } = await this.api.fetch(
         'countries',

@@ -8,7 +8,7 @@ export class SportView extends View {
     const selectCountryElement = document.createElement('select')
     const selectLeagueElement = document.createElement('select')
     const ulElement = document.createElement('ul')
-
+    document.addEventListener('input', this.leagueShow.bind(this), false)
     selectCountryElement.className = 'country'
     countries.countries.forEach((countryItem) => {
       const listItem = this.createListItem(countryItem)
@@ -35,12 +35,24 @@ export class SportView extends View {
     return div.outerHTML
   }
 
+  leagueShow(e) {
+    if (e.target.className !== 'country') return
+    const name = e.target.value
+    const selectedCountry = document.querySelector(
+      `option[data-country-name="${name}"]`
+    )
+
+    const selectedCountryId = selectedCountry.dataset.id
+    console.log(selectedCountryId)
+  }
+
   createListItem(countryData) {
     const { countryId, name, countryCode, continent } = countryData
 
     const listItem = document.createElement('option')
     listItem.className = 'country__item'
     listItem.dataset.id = countryId
+    listItem.dataset.countryName = name
 
     const html = `${name}`
 
