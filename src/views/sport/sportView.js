@@ -1,14 +1,20 @@
 import View from '../../shared/view'
 
 import './sport.css'
+import { SPORT_API } from '../../environment'
+import { LeagueContentProvider } from './leagueConentProvider'
+import { LeagueView } from './leagueView'
+import { SportAPI } from './index'
 
 export class SportView extends View {
   render(countries, leagues, teams) {
     const div = document.createElement('div')
     const selectCountryElement = document.createElement('select')
     const selectLeagueElement = document.createElement('select')
+    const changeOptionSpinner = document.createElement('div')
+    changeOptionSpinner.className = 'sportSpinner'
     const ulElement = document.createElement('ul')
-    document.addEventListener('input', this.leagueShow.bind(this), false)
+    document.addEventListener('input', this.leagueChange.bind(this), false)
     selectCountryElement.className = 'country'
     countries.countries.forEach((countryItem) => {
       const listItem = this.createListItem(countryItem)
@@ -30,20 +36,32 @@ export class SportView extends View {
 
     div.appendChild(selectCountryElement)
     div.appendChild(selectLeagueElement)
+    div.appendChild(changeOptionSpinner)
     div.appendChild(ulElement)
 
     return div.outerHTML
   }
 
-  leagueShow(e) {
+  leagueChange(e) {
     if (e.target.className !== 'country') return
     const name = e.target.value
     const selectedCountry = document.querySelector(
       `option[data-country-name="${name}"]`
     )
-
     const selectedCountryId = selectedCountry.dataset.id
-    console.log(selectedCountryId)
+    const leagueApi = new SportAPI(SPORT_API.API_BASE_URL, SPORT_API.API_KEY)
+    const leagues = new LeagueContentProvider(
+      leagueApi,
+      new LeagueView(),
+      selectedCountryId
+    )
+    const mainContentAppearAnimationClassName = 'appear-animation'
+    const spinnerDiv = document.querySelector('.sportSpinner')
+    setTimeout(async () => {
+      spinnerDiv.classList.add(mainContentAppearAnimationClassName)
+      let viewContent = await leagues.getContent()
+      spinnerDiv.classList.remove(mainContentAppearAnimationClassName)
+    }, 0)
   }
 
   createListItem(countryData) {

@@ -64,6 +64,7 @@ export class SportContentProvider extends ContentProvider {
       }
 
       if (countries) {
+        countriesArray.shift()
         this.countryListModel.addCountry(
           countriesArray.map((item) => new Country(item))
         )
