@@ -1,5 +1,6 @@
 import View from '../../shared/view'
 import CardPreview from '../../shared/cardPreview'
+import { getSpinner, getSpinnerClassName } from '../../shared/spinner'
 
 import { formatDate, stripHTMLTags } from '../../utils'
 
@@ -7,7 +8,6 @@ import './news.css'
 
 const newsClassName = 'news'
 const newsItemClassName = 'news__item'
-const newsItemSelector = `.${newsItemClassName}`
 const newsHeaderClassName = 'news__header'
 const newsImageClassName = 'news__image'
 const newsTitleClassName = 'news__title'
@@ -16,16 +16,62 @@ const newsDescriptionClassName = 'news__description'
 const contentClassName = 'news__content'
 const linkClassName = 'news__article-link'
 export default class NewsListView extends View {
+  constructor() {
+    super()
+
+    this.isScrolled = false
+
+    this._handleScroll = this._handleScroll.bind(this)
+  }
+
   render(data) {
     const ulElement = document.createElement('ul')
     ulElement.className = newsClassName
 
-    data.news.forEach((newsItem) => {
+    data.forEach((newsItem) => {
       const listItem = this._createListItem(newsItem)
       ulElement.appendChild(listItem)
     })
 
     return ulElement
+  }
+
+  renderNewData(data) {
+    const ulElement = document.querySelector(`.${newsClassName}`)
+
+    if (ulElement) {
+      data.forEach((newsItem) => {
+        const listItem = this._createListItem(newsItem)
+        ulElement.appendChild(listItem)
+      })
+    }
+  }
+
+  showSpinner() {
+    const ulElement = document.querySelector(`.${newsClassName}`)
+
+    if (ulElement) {
+      ulElement.parentNode.insertAdjacentHTML('beforeend', getSpinner())
+    }
+  }
+
+  hideSpinner() {
+    const ulElement = document.querySelector(`.${newsClassName}`)
+
+    if (ulElement) {
+      const spinner = ulElement.parentNode.querySelector(
+        `.${getSpinnerClassName()}`
+      )
+      spinner.remove()
+    }
+  }
+
+  bindEvents() {
+    window.addEventListener('scroll', this._handleScroll, { passive: true })
+  }
+
+  unbindEvents() {
+    window.removeEventListener('scroll', this._handleScroll)
   }
 
   _createListItem(newsData) {
@@ -92,6 +138,18 @@ export default class NewsListView extends View {
 
       const cardPreview = new CardPreview(newsItemElement, previewContent)
       cardPreview.showCardPreview()
+    }
+  }
+
+  _handleScroll() {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement
+
+    if (scrollTop + clientHeight >= scrollHeight - 10 && !this.isScrolled) {
+      this.isScrolled = true
+
+      this.eventListener.loadMoreNews()
+
+      setTimeout(() => (this.isScrolled = false), 1000)
     }
   }
 }

@@ -12,12 +12,12 @@ export default class NewsAPI extends API {
     }
   }
 
-  fetch() {
+  fetch(pageNumber) {
     let options = {
       headers: this.defaultHeaders,
     }
 
-    let query = `?language=${this.language}`
+    let query = `?language=${this.language}&page=${pageNumber}`
 
     return super.fetch(this.topHeadlinesUrl, options, query)
   }
