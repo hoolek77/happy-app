@@ -55,7 +55,8 @@ export default class NewsContentProvider extends ContentProvider {
       news,
       this.supportedCountries.countries,
       this.supportedCategories,
-      this.selectedCountry
+      this.selectedCountry,
+      this.selectedCategory
     )
   }
 
@@ -85,6 +86,19 @@ export default class NewsContentProvider extends ContentProvider {
     this._loadNews()
   }
 
+  onCategoryChange(category) {
+    if (this.supportedCategories.includes(category)) {
+      this.selectedCategory = category
+    } else {
+      this.selectedCategory = null
+    }
+
+    this.currentPage = 1
+
+    this.view.clearNewsList()
+    this._loadNews()
+  }
+
   async _loadNews() {
     this.view.showSpinner()
 
@@ -104,7 +118,11 @@ export default class NewsContentProvider extends ContentProvider {
         status = '',
         totalResults = 0,
         articles = [],
-      } = await this.api.fetch(page, this.selectedCountry)
+      } = await this.api.fetch(
+        page,
+        this.selectedCountry,
+        this.selectedCategory
+      )
       //let { status = '', totalResults = 0, articles = [] } = apiResponse
 
       if (status === 'ok') {

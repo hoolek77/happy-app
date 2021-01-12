@@ -12,7 +12,7 @@ export default class NewsAPI extends API {
     }
   }
 
-  fetch(pageNumber, country) {
+  fetch(pageNumber, country, category) {
     let options = {
       headers: this.defaultHeaders,
     }
@@ -21,6 +21,10 @@ export default class NewsAPI extends API {
 
     if (country) {
       query += `&country=${country.isoCode}`
+    }
+
+    if (category) {
+      query += `&category=${category}`
     }
 
     return super.fetch(this.topHeadlinesUrl, options, query)

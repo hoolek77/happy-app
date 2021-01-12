@@ -31,11 +31,19 @@ export default class NewsListView extends View {
 
     this._handleScroll = this._handleScroll.bind(this)
     this._handleCountrySelectChange = this._handleCountrySelectChange.bind(this)
+    this._handleCategorySelectChange = this._handleCategorySelectChange.bind(
+      this
+    )
   }
 
-  render(data, countries, categories, selectedCountry) {
+  render(data, countries, categories, selectedCountry, selectedCategory) {
     const mainWrapper = document.createElement('div')
-    const formElement = this._createForm(countries, categories, selectedCountry)
+    const formElement = this._createForm(
+      countries,
+      categories,
+      selectedCountry,
+      selectedCategory
+    )
     const ulElement = this._createNewsList(data)
 
     mainWrapper.appendChild(formElement)
@@ -90,7 +98,7 @@ export default class NewsListView extends View {
     window.removeEventListener('scroll', this._handleScroll)
   }
 
-  _createForm(countries, categories, selectedCountry) {
+  _createForm(countries, categories, selectedCountry, selectedCategory) {
     const formElement = document.createElement('form')
     formElement.classList.add(formClassName)
     formElement.classList.add(newsFormClassName)
@@ -102,7 +110,10 @@ export default class NewsListView extends View {
     )
     selectsWrapperElement.appendChild(countriesSelect)
 
-    const categoriesSelect = this._createCategoriesSelect(categories)
+    const categoriesSelect = this._createCategoriesSelect(
+      categories,
+      selectedCategory
+    )
     selectsWrapperElement.appendChild(categoriesSelect)
 
     formElement.appendChild(selectsWrapperElement)
@@ -134,10 +145,12 @@ export default class NewsListView extends View {
     return selectElement
   }
 
-  _createCategoriesSelect(categories) {
+  _createCategoriesSelect(categories, selectedCategory) {
     const selectElement = document.createElement('select')
     selectElement.classList.add(selectClassName)
     selectElement.classList.add(categoriesSelectClassName)
+
+    selectElement.addEventListener('change', this._handleCategorySelectChange)
 
     selectElement.add(
       new Option(capitalizeFirstLetter(allCategories), allCategories)
@@ -145,6 +158,11 @@ export default class NewsListView extends View {
 
     categories.forEach((category) => {
       const option = new Option(capitalizeFirstLetter(category), category)
+
+      if (selectedCategory && selectedCategory === category) {
+        option.selected = true
+      }
+
       selectElement.add(option, undefined)
     })
 
@@ -232,8 +250,14 @@ export default class NewsListView extends View {
 
   _handleCountrySelectChange(e) {
     const selectedCountryIsoCode = e.target.value
-    console.log(selectedCountryIsoCode)
+
     this.eventListener.onCountryChange(selectedCountryIsoCode)
+  }
+
+  _handleCategorySelectChange(e) {
+    const selectedCategory = e.target.value
+
+    this.eventListener.onCategoryChange(selectedCategory)
   }
 
   _handleScroll() {
