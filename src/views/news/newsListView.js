@@ -256,7 +256,11 @@ export default class NewsListView extends View {
   }
 
   _removeCharsInfoFromContent(content) {
-    return content.replace(/\[\+\d+ chars\]/, '')
+    if (content) {
+      return content.replace(/\[\+\d+ chars\]/, '')
+    } else {
+      return ''
+    }
   }
 
   async _handleNewsItemClick(e) {
