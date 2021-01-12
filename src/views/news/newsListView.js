@@ -20,6 +20,8 @@ const newsFormClassName = 'news__form'
 const countriesSelectClassName = 'news__countries'
 const categoriesSelectClassName = 'news__categories'
 const selectClassName = 'form__select'
+const worldSelect = 'world'
+const allCategories = 'all'
 
 export default class NewsListView extends View {
   constructor() {
@@ -101,6 +103,10 @@ export default class NewsListView extends View {
     selectElement.classList.add(selectClassName)
     selectElement.classList.add(countriesSelectClassName)
 
+    selectElement.add(
+      new Option(capitalizeFirstLetter(worldSelect), worldSelect)
+    )
+
     countries.forEach((country) => {
       const option = new Option(country.countryName, country.isoCode)
       selectElement.add(option, undefined)
@@ -113,6 +119,10 @@ export default class NewsListView extends View {
     const selectElement = document.createElement('select')
     selectElement.classList.add(selectClassName)
     selectElement.classList.add(categoriesSelectClassName)
+
+    selectElement.add(
+      new Option(capitalizeFirstLetter(allCategories), allCategories)
+    )
 
     categories.forEach((category) => {
       const option = new Option(capitalizeFirstLetter(category), category)
