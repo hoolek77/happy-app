@@ -30,11 +30,12 @@ export default class NewsListView extends View {
     this.isScrolled = false
 
     this._handleScroll = this._handleScroll.bind(this)
+    this._handleCountrySelectChange = this._handleCountrySelectChange.bind(this)
   }
 
-  render(data, countries, categories) {
+  render(data, countries, categories, selectedCountry) {
     const mainWrapper = document.createElement('div')
-    const formElement = this._createForm(countries, categories)
+    const formElement = this._createForm(countries, categories, selectedCountry)
     const ulElement = this._createNewsList(data)
 
     mainWrapper.appendChild(formElement)
@@ -51,6 +52,14 @@ export default class NewsListView extends View {
         const listItem = this._createListItem(newsItem)
         ulElement.appendChild(listItem)
       })
+    }
+  }
+
+  clearNewsList() {
+    const ulElement = document.querySelector(`.${newsClassName}`)
+
+    if (ulElement) {
+      ulElement.innerHTML = ''
     }
   }
 
@@ -81,13 +90,16 @@ export default class NewsListView extends View {
     window.removeEventListener('scroll', this._handleScroll)
   }
 
-  _createForm(countries, categories) {
+  _createForm(countries, categories, selectedCountry) {
     const formElement = document.createElement('form')
     formElement.classList.add(formClassName)
     formElement.classList.add(newsFormClassName)
 
     const selectsWrapperElement = document.createElement('div')
-    const countriesSelect = this._createCountriesSelect(countries)
+    const countriesSelect = this._createCountriesSelect(
+      countries,
+      selectedCountry
+    )
     selectsWrapperElement.appendChild(countriesSelect)
 
     const categoriesSelect = this._createCategoriesSelect(categories)
@@ -98,10 +110,12 @@ export default class NewsListView extends View {
     return formElement
   }
 
-  _createCountriesSelect(countries) {
+  _createCountriesSelect(countries, selectedCountry) {
     const selectElement = document.createElement('select')
     selectElement.classList.add(selectClassName)
     selectElement.classList.add(countriesSelectClassName)
+
+    selectElement.addEventListener('change', this._handleCountrySelectChange)
 
     selectElement.add(
       new Option(capitalizeFirstLetter(worldSelect), worldSelect)
@@ -109,6 +123,11 @@ export default class NewsListView extends View {
 
     countries.forEach((country) => {
       const option = new Option(country.countryName, country.isoCode)
+
+      if (selectedCountry && selectedCountry.isoCode === country.isoCode) {
+        option.selected = true
+      }
+
       selectElement.add(option, undefined)
     })
 
@@ -209,6 +228,12 @@ export default class NewsListView extends View {
       const cardPreview = new CardPreview(newsItemElement, previewContent)
       cardPreview.showCardPreview()
     }
+  }
+
+  _handleCountrySelectChange(e) {
+    const selectedCountryIsoCode = e.target.value
+    console.log(selectedCountryIsoCode)
+    this.eventListener.onCountryChange(selectedCountryIsoCode)
   }
 
   _handleScroll() {
