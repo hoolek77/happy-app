@@ -1,0 +1,8 @@
+.form__select {
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid #0b3c8c;
+  border-radius: 6px;
+  font-size: 1.6rem;
+  outline: none;
+  padding: 1rem;
+}

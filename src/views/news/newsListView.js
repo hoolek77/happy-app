@@ -2,7 +2,7 @@ import View from '../../shared/view'
 import CardPreview from '../../shared/cardPreview'
 import { getSpinner, getSpinnerClassName } from '../../shared/spinner'
 
-import { formatDate, stripHTMLTags } from '../../utils'
+import { formatDate, stripHTMLTags, capitalizeFirstLetter } from '../../utils'
 
 import './news.css'
 
@@ -15,6 +15,12 @@ const newsInfoClassName = 'news__info'
 const newsDescriptionClassName = 'news__description'
 const contentClassName = 'news__content'
 const linkClassName = 'news__article-link'
+const formClassName = 'form'
+const newsFormClassName = 'news__form'
+const countriesSelectClassName = 'news__countries'
+const categoriesSelectClassName = 'news__categories'
+const selectClassName = 'form__select'
+
 export default class NewsListView extends View {
   constructor() {
     super()
@@ -24,16 +30,15 @@ export default class NewsListView extends View {
     this._handleScroll = this._handleScroll.bind(this)
   }
 
-  render(data) {
-    const ulElement = document.createElement('ul')
-    ulElement.className = newsClassName
+  render(data, countries, categories) {
+    const mainWrapper = document.createElement('div')
+    const formElement = this._createForm(countries, categories)
+    const ulElement = this._createNewsList(data)
 
-    data.forEach((newsItem) => {
-      const listItem = this._createListItem(newsItem)
-      ulElement.appendChild(listItem)
-    })
+    mainWrapper.appendChild(formElement)
+    mainWrapper.appendChild(ulElement)
 
-    return ulElement
+    return mainWrapper
   }
 
   renderNewData(data) {
@@ -72,6 +77,61 @@ export default class NewsListView extends View {
 
   unbindEvents() {
     window.removeEventListener('scroll', this._handleScroll)
+  }
+
+  _createForm(countries, categories) {
+    const formElement = document.createElement('form')
+    formElement.classList.add(formClassName)
+    formElement.classList.add(newsFormClassName)
+
+    const selectsWrapperElement = document.createElement('div')
+    const countriesSelect = this._createCountriesSelect(countries)
+    selectsWrapperElement.appendChild(countriesSelect)
+
+    const categoriesSelect = this._createCategoriesSelect(categories)
+    selectsWrapperElement.appendChild(categoriesSelect)
+
+    formElement.appendChild(selectsWrapperElement)
+
+    return formElement
+  }
+
+  _createCountriesSelect(countries) {
+    const selectElement = document.createElement('select')
+    selectElement.classList.add(selectClassName)
+    selectElement.classList.add(countriesSelectClassName)
+
+    countries.forEach((country) => {
+      const option = new Option(country.countryName, country.isoCode)
+      selectElement.add(option, undefined)
+    })
+
+    return selectElement
+  }
+
+  _createCategoriesSelect(categories) {
+    const selectElement = document.createElement('select')
+    selectElement.classList.add(selectClassName)
+    selectElement.classList.add(categoriesSelectClassName)
+
+    categories.forEach((category) => {
+      const option = new Option(capitalizeFirstLetter(category), category)
+      selectElement.add(option, undefined)
+    })
+
+    return selectElement
+  }
+
+  _createNewsList(data) {
+    const ulElement = document.createElement('ul')
+    ulElement.className = newsClassName
+
+    data.forEach((newsItem) => {
+      const listItem = this._createListItem(newsItem)
+      ulElement.appendChild(listItem)
+    })
+
+    return ulElement
   }
 
   _createListItem(newsData) {
