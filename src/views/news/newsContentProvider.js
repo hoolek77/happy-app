@@ -28,6 +28,7 @@ export default class NewsContentProvider extends ContentProvider {
 
     this.selectedCountry = null
     this.selectedCategory = null
+    this.searchText = null
   }
 
   setup() {
@@ -47,6 +48,7 @@ export default class NewsContentProvider extends ContentProvider {
   }
 
   async getContent() {
+    this.searchText = null
     this.currentPage = 1
     const news = await this._fetchNewsData(this.currentPage)
     this.newsListModel.addNews(news)
@@ -99,6 +101,15 @@ export default class NewsContentProvider extends ContentProvider {
     this._loadNews()
   }
 
+  onSearchTextEnetered(searchText) {
+    this.searchText = encodeURIComponent(searchText)
+
+    this.currentPage = 1
+
+    this.view.clearNewsList()
+    this._loadNews()
+  }
+
   async _loadNews() {
     this.view.showSpinner()
 
@@ -121,7 +132,8 @@ export default class NewsContentProvider extends ContentProvider {
       } = await this.api.fetch(
         page,
         this.selectedCountry,
-        this.selectedCategory
+        this.selectedCategory,
+        this.searchText
       )
       //let { status = '', totalResults = 0, articles = [] } = apiResponse
 

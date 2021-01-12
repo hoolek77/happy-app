@@ -19,7 +19,9 @@ const formClassName = 'form'
 const newsFormClassName = 'news__form'
 const countriesSelectClassName = 'news__countries'
 const categoriesSelectClassName = 'news__categories'
+const searchInputClassName = 'news__search'
 const selectClassName = 'form__select'
+const inputClassName = 'form__input'
 const worldSelect = 'world'
 const allCategories = 'all'
 
@@ -34,6 +36,10 @@ export default class NewsListView extends View {
     this._handleCategorySelectChange = this._handleCategorySelectChange.bind(
       this
     )
+    this._handleSearchInputValueChange = this._handleSearchInputValueChange.bind(
+      this
+    )
+    this._handleFormSubmit = this._handleFormSubmit.bind(this)
   }
 
   render(data, countries, categories, selectedCountry, selectedCategory) {
@@ -102,6 +108,7 @@ export default class NewsListView extends View {
     const formElement = document.createElement('form')
     formElement.classList.add(formClassName)
     formElement.classList.add(newsFormClassName)
+    formElement.addEventListener('submit', this._handleFormSubmit, false)
 
     const selectsWrapperElement = document.createElement('div')
     const countriesSelect = this._createCountriesSelect(
@@ -117,6 +124,12 @@ export default class NewsListView extends View {
     selectsWrapperElement.appendChild(categoriesSelect)
 
     formElement.appendChild(selectsWrapperElement)
+
+    const searchWrapper = document.createElement('div')
+    const searchInput = this._createSearchInput()
+    searchWrapper.appendChild(searchInput)
+
+    formElement.appendChild(searchWrapper)
 
     return formElement
   }
@@ -167,6 +180,19 @@ export default class NewsListView extends View {
     })
 
     return selectElement
+  }
+
+  _createSearchInput() {
+    const inputElement = document.createElement('input')
+    inputElement.classList.add(inputClassName)
+    inputElement.classList.add(searchInputClassName)
+    inputElement.setAttribute('type', 'text')
+    inputElement.setAttribute('placeholder', 'Search')
+    inputElement.setAttribute('name', 'search')
+
+    inputElement.addEventListener('keyup', this._handleSearchInputValueChange)
+
+    return inputElement
   }
 
   _createNewsList(data) {
@@ -258,6 +284,23 @@ export default class NewsListView extends View {
     const selectedCategory = e.target.value
 
     this.eventListener.onCategoryChange(selectedCategory)
+  }
+
+  _handleSearchInputValueChange(e) {
+    e.preventDefault()
+
+    if (e.keyCode === 13) {
+      const searchInput = e.target
+      const searchText = searchInput.value
+
+      this.eventListener.onSearchTextEnetered(searchText)
+
+      searchInput.value = ''
+    }
+  }
+
+  _handleFormSubmit(e) {
+    e.preventDefault()
   }
 
   _handleScroll() {
