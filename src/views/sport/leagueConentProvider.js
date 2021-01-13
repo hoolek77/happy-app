@@ -23,6 +23,10 @@ export class LeagueContentProvider extends ContentProvider {
       for (const league of Object.values(leagues)) {
         leaguesArray.push(league)
       }
+      const firstItem = {
+        name: 'choose league',
+      }
+      leaguesArray.unshift(firstItem)
 
       if (leagues) {
         this.leagueListModel.addLeague(

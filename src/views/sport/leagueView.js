@@ -7,18 +7,18 @@ export class LeagueView extends View {
     const selectLeagueElement = document.querySelector('.league')
     selectLeagueElement.innerHTML = ''
     leagues.leagues.forEach((countryItem) => {
-      const listItem = this.createListItem(countryItem)
+      const listItem = this.createLeagueListItem(countryItem)
       selectLeagueElement.appendChild(listItem)
     })
   }
 
-  createListItem(countryData) {
-    const { countryId, name, countryCode, continent } = countryData
+  createLeagueListItem(countryData) {
+    const { leagueId, name, countryCode, continent } = countryData
 
     const listItem = document.createElement('option')
-    listItem.className = 'country__item'
-    listItem.dataset.id = countryId
-    listItem.dataset.countryName = name
+    listItem.className = 'league__item'
+    listItem.dataset.id = leagueId
+    listItem.dataset.leagueName = name
 
     const html = `${name}`
 

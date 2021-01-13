@@ -6,8 +6,11 @@ import Country from './country'
 import LeagueList from './leagueList'
 import League from './leagues'
 
-import TeamsList from './teamsList'
-import Team from './team'
+import SeasonList from './seasonList'
+import Season from './season'
+
+import MatchesList from './matchesList'
+import Match from './match'
 
 export class SportContentProvider extends ContentProvider {
   constructor(api, view) {
@@ -15,7 +18,8 @@ export class SportContentProvider extends ContentProvider {
 
     this.countryListModel = new CountryList()
     this.leagueListModel = new LeagueList()
-    this.teamsListModel = new TeamsList()
+    this.seasonListModel = new SeasonList()
+    this.matchesListModel = new MatchesList()
   }
 
   getTitle() {
@@ -39,28 +43,41 @@ export class SportContentProvider extends ContentProvider {
         countriesArray.push(country)
       }
 
-      let { data: teams = [] } = await this.api.fetch(
-        'teams',
-        'country_id',
-        '48'
-      )
-
-      const teamsArray = []
-      for (const team of Object.values(teams)) {
-        if (teamsArray.length < 20) {
-          teamsArray.push(team)
-        }
-      }
-
       let { data: leagues = [] } = await this.api.fetch(
         'leagues',
         'country_id',
-        '48'
+        '9'
       )
 
       const leaguesArray = []
       for (const league of Object.values(leagues)) {
         leaguesArray.push(league)
+      }
+
+      let { data: seasons = [] } = await this.api.fetch(
+        'seasons',
+        'league_id',
+        '168'
+      )
+
+      const seasonsArray = []
+      for (const season of Object.values(seasons)) {
+        seasonsArray.push(season)
+      }
+
+      let { data: matches = [] } = await this.api.fetch(
+        'matches',
+        'season_id',
+        '352',
+        'date_from',
+        '2020-09-12',
+        'date_to',
+        '2020-09-13'
+      )
+
+      const matchesArray = []
+      for (const match of Object.values(matches)) {
+        matchesArray.push(match)
       }
 
       if (countries) {
@@ -71,12 +88,18 @@ export class SportContentProvider extends ContentProvider {
         this.leagueListModel.addLeague(
           leaguesArray.map((item) => new League(item))
         )
-        this.teamsListModel.addTeam(teamsArray.map((item) => new Team(item)))
+        this.seasonListModel.addSeason(
+          seasonsArray.map((item) => new Season(item))
+        )
+        this.matchesListModel.addMatch(
+          matchesArray.map((item) => new Match(item))
+        )
 
         return this.view.render(
           this.countryListModel,
           this.leagueListModel,
-          this.teamsListModel
+          this.seasonListModel,
+          this.matchesListModel
         )
       }
     } catch (err) {

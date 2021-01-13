@@ -1,4 +1,4 @@
-.teams {
+.matches {
   display: grid;
   gap: 2.5rem;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -6,25 +6,97 @@
   margin: 0;
 }
 
-.team__item {
+.match__header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  height: 200px;
+}
+
+.firstTeam {
+  align-self: center;
+}
+
+.match__item {
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0px 35px 77px -17px rgba(0, 0, 0, 0.44);
   cursor: pointer;
   display: inline-block;
   overflow: hidden;
-  transition: all 0.3s ease-out;
+  position: relative;
+  transition: box-shadow 0.3s ease-out, transform 0.3s ease-out;
+  align-items: center;
 }
 
-.team__item:hover {
+.match__score {
+  text-align: center;
+}
+
+.match__item:hover {
   box-shadow: 0px 35px 77px -17px rgba(0, 0, 0, 0.64);
   transform: scale(1.05);
 }
 
-.team__header {
-  text-align: center;
+.match__img {
+  max-height: 150px;
+  max-width: 150px;
+  overflow: hidden;
+  margin: 0 auto;
 }
 
-.team__header img {
-  margin: 15px auto 0;
+.match__title {
+  padding: 0 2rem;
+  font-size: 11px !important;
 }
+/* 
+.news__info {
+  color: rgba(98, 98, 98, 0.73);
+  font-size: 1.4rem;
+  padding: 0 2rem;
+}
+
+.news__description,
+.news__content,
+.news__article-link {
+  padding: 2rem;
+}
+
+.news__item.is-expanded {
+  cursor: inherit;
+  z-index: 200;
+}
+
+.news__item.is-expanded:hover {
+  box-shadow: 0px 35px 77px -17px rgba(0, 0, 0, 0.44);
+  transform: none;
+}
+
+.news__item.is-expanded > * {
+  opacity: 0;
+  transform: translateY(-35px);
+}
+
+.news__item.is-expanded .news__header {
+  animation: slideDown 0.5s ease-out 0.3s forwards;
+}
+
+.news__item.is-expanded .news__content {
+  animation: slideDown 0.5s ease-out 0.4s forwards;
+}
+
+.news__item.is-expanded .close-button-container {
+  animation: slideDown 0.5s ease-out 0.3s forwards;
+}
+
+.news__item.is-expanded .news__article-link {
+  animation: slideDown 0.5s ease-out 0.4s forwards;
+}
+
+@keyframes slideDown {
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} */
