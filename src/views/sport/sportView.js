@@ -16,7 +16,7 @@ export class SportView extends View {
     const selectSeasonElement = document.createElement('select')
     const showTeams = document.createElement('button')
     const ulElement = document.createElement('ul')
-
+    showTeams.addEventListener('click', this.handleMatchClick)
     showTeams.className = 'btnSport'
     showTeams.innerText = 'Show teams'
 
