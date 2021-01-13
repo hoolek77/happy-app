@@ -1,0 +1,218 @@
+[
+    {
+        "isoCode": "ae",
+        "countryName": "United Arab Emirates"
+    },
+    {
+        "isoCode": "ar",
+        "countryName": "Argentina"
+    },
+    {
+        "isoCode": "at",
+        "countryName": "Austria"
+    },
+    {
+        "isoCode": "au",
+        "countryName": "Australia"
+    },
+    {
+        "isoCode": "be",
+        "countryName": "Belgium"
+    },
+    {
+        "isoCode": "bg",
+        "countryName": "Bulgaria"
+    },
+    {
+        "isoCode": "br",
+        "countryName": "Brazil"
+    },
+    {
+        "isoCode": "ca",
+        "countryName": "Canada"
+    },
+    {
+        "isoCode": "ch",
+        "countryName": "Switzerland"
+    },
+    {
+        "isoCode": "cn",
+        "countryName": "China"
+    },
+    {
+        "isoCode": "co",
+        "countryName": "Colombia"
+    },
+    {
+        "isoCode": "cu",
+        "countryName": "Cuba"
+    },
+    {
+        "isoCode": "cz",
+        "countryName": "Czech Republic"
+    },
+    {
+        "isoCode": "de",
+        "countryName": "Germany"
+    },
+    {
+        "isoCode": "eg",
+        "countryName": "Egypt"
+    },
+    {
+        "isoCode": "fr",
+        "countryName": "France"
+    },
+    {
+        "isoCode": "gb",
+        "countryName": "United Kingdom"
+    },
+    {
+        "isoCode": "gr",
+        "countryName": "Greece"
+    },
+    {
+        "isoCode": "hk",
+        "countryName": "Hong Kong"
+    },
+    {
+        "isoCode": "hu",
+        "countryName": "Hungary"
+    },
+    {
+        "isoCode": "id",
+        "countryName": "Indonesia"
+    },
+    {
+        "isoCode": "ie",
+        "countryName": "Ireland"
+    },
+    {
+        "isoCode": "il",
+        "countryName": "Israel"
+    },
+    {
+        "isoCode": "in",
+        "countryName": "India"
+    },
+    {
+        "isoCode": "it",
+        "countryName": "Italy"
+    },
+    {
+        "isoCode": "jp",
+        "countryName": "Japan"
+    },
+    {
+        "isoCode": "kr",
+        "countryName": "Republic of Korea"
+    },
+    {
+        "isoCode": "lt",
+        "countryName": "Lithuania"
+    },
+    {
+        "isoCode": "lv",
+        "countryName": "Latvia"
+    },
+    {
+        "isoCode": "ma",
+        "countryName": "Morocco"
+    },
+    {
+        "isoCode": "mx",
+        "countryName": "Mexico"
+    },
+    {
+        "isoCode": "my",
+        "countryName": "Malaysia"
+    },
+    {
+        "isoCode": "ng",
+        "countryName": "Nigeria"
+    },
+    {
+        "isoCode": "nl",
+        "countryName": "Netherlands"
+    },
+    {
+        "isoCode": "no",
+        "countryName": "Norway"
+    },
+    {
+        "isoCode": "nz",
+        "countryName": "New Zealand"
+    },
+    {
+        "isoCode": "ph",
+        "countryName": "Philippines"
+    },
+    {
+        "isoCode": "pl",
+        "countryName": "Poland"
+    },
+    {
+        "isoCode": "pt",
+        "countryName": "Portugal"
+    },
+    {
+        "isoCode": "ro",
+        "countryName": "Romania"
+    },
+    {
+        "isoCode": "rs",
+        "countryName": "Serbia"
+    },
+    {
+        "isoCode": "ru",
+        "countryName": "Russian Federation"
+    },
+    {
+        "isoCode": "sa",
+        "countryName": "Saudi Arabia"
+    },
+    {
+        "isoCode": "se",
+        "countryName": "Sweden"
+    },
+    {
+        "isoCode": "sg",
+        "countryName": "Singapore"
+    },
+    {
+        "isoCode": "si",
+        "countryName": "Slovenia"
+    },
+    {
+        "isoCode": "sk",
+        "countryName": "Slovakia"
+    },
+    {
+        "isoCode": "th",
+        "countryName": "Thailand"
+    },
+    {
+        "isoCode": "tr",
+        "countryName": "Turkey"
+    },
+    {
+        "isoCode": "tw",
+        "countryName": "Taiwan"
+    },
+    {
+        "isoCode": "ua",
+        "countryName": "Ukraine"
+    },
+    {
+        "isoCode": "us",
+        "countryName": "United States"
+    },
+    {
+        "isoCode": "ve",
+        "countryName": "Venezuela"
+    },
+    {
+        "isoCode": "za",
+        "countryName": "South Africa"
+    }
+]

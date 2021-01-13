@@ -58,6 +58,10 @@ ul {
   padding: 0;
 }
 
+h1 {
+  font-size: 3.6rem;
+}
+
 .wrapper {
   margin: 0 auto;
   max-width: calc(100% - 4rem);

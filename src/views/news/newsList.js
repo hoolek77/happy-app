@@ -3,6 +3,10 @@ export default class NewsList {
     this.news = []
   }
 
+  clear() {
+    this.news = []
+  }
+
   addNews(news) {
     this.news.push(...news)
   }
