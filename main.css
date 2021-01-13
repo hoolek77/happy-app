@@ -57,6 +57,10 @@ ul {
   padding: 0;
 }
 
+h1 {
+  font-size: 3.6rem;
+}
+
 .wrapper {
   margin: 0 auto;
   max-width: calc(100% - 4rem);
@@ -458,6 +462,16 @@ ul {
   transform: translateY(100%);
 }
 
+.form__select,
+.form__input {
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid #0b3c8c;
+  border-radius: 6px;
+  font-size: 1.6rem;
+  outline: none;
+  padding: 1rem;
+}
+
 
 
 .view__content .spinner {
@@ -523,7 +537,7 @@ ul {
   gap: 2.5rem;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   list-style: none;
-  margin: 0;
+  margin: 0 0 2rem;
 }
 
 .news__item {
@@ -592,6 +606,16 @@ ul {
 
 .news__item.is-expanded .news__article-link {
   animation: slideDown 0.5s ease-out 0.4s forwards;
+}
+
+.news__form {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.news__countries {
+  margin-right: 1rem;
 }
 
 @keyframes slideDown {
