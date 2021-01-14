@@ -16,7 +16,7 @@ export class SportView extends View {
     const selectSeasonElement = document.createElement('select')
     const showTeams = document.createElement('button')
     const ulElement = document.createElement('ul')
-    showTeams.addEventListener('click', this.handleMatchClick)
+    showTeams.addEventListener('click', this.handleMatchClick.bind(this))
     showTeams.className = 'btnSport'
     showTeams.innerText = 'Show teams'
 
@@ -53,7 +53,7 @@ export class SportView extends View {
     div.appendChild(showTeams)
     div.appendChild(ulElement)
 
-    return div.outerHTML
+    return div
   }
 
   leagueChange(e) {
