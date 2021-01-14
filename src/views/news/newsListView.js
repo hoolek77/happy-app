@@ -24,6 +24,8 @@ const selectClassName = 'form__select'
 const inputClassName = 'form__input'
 const worldSelect = 'world'
 const allCategories = 'all'
+const errorContainerClassName = 'error__container'
+const errorMessageClassName = 'error__message'
 
 export default class NewsListView extends View {
   constructor() {
@@ -67,6 +69,19 @@ export default class NewsListView extends View {
         ulElement.appendChild(listItem)
       })
     }
+  }
+
+  renderError(errorMessage) {
+    const wrapper = document.createElement('div')
+    wrapper.className = errorContainerClassName
+
+    const pElement = document.createElement('p')
+    pElement.className = errorMessageClassName
+    pElement.textContent = errorMessage
+
+    wrapper.appendChild(pElement)
+
+    return wrapper
   }
 
   clearNewsList() {
