@@ -2,9 +2,7 @@ import View from '../../shared/view'
 
 import './sport.css'
 import { SPORT_API } from '../../environment'
-import { LeagueContentProvider } from './leagueConentProvider'
 import { SeasonContentProvider } from './seasonContentProvider'
-import { LeagueView } from './leagueView'
 import { SeasonView } from './seasonView'
 import { SportAPI } from './index'
 
@@ -20,7 +18,6 @@ export class SportView extends View {
     showTeams.className = 'btnSport'
     showTeams.innerText = 'Show teams'
 
-    document.addEventListener('input', this.leagueChange.bind(this), false)
     document.addEventListener('input', this.seasonsChange.bind(this), false)
 
     selectCountryElement.className = 'country'
@@ -54,28 +51,6 @@ export class SportView extends View {
     div.appendChild(ulElement)
 
     return div
-  }
-
-  leagueChange(e) {
-    if (e.target.className !== 'country') return
-    const name = e.target.value
-    const seasonList = document.querySelector('.season')
-    seasonList.innerHTML = ''
-    const selectedCountry = document.querySelector(
-      `option[data-country-name="${name}"]`
-    )
-    const selectedCountryId = selectedCountry.dataset.id
-    const leagueApi = new SportAPI(SPORT_API.API_BASE_URL, SPORT_API.API_KEY)
-    const leagues = new LeagueContentProvider(
-      leagueApi,
-      new LeagueView(),
-      selectedCountryId
-    )
-    const mainContentAppearAnimationClassName = 'appear-animation'
-    const spinnerDiv = document.querySelector('.sportSpinner')
-    setTimeout(async () => {
-      let viewContent = await leagues.getContent()
-    }, 0)
   }
 
   seasonsChange(e) {

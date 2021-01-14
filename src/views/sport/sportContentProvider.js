@@ -1,9 +1,9 @@
 import ContentProvider from '../../shared/contentProvider'
 
-import CountryList from './countryList'
+// import CountryList from './countryList'
 import Countries from './countries'
 
-import LeagueList from './leagueList'
+// import LeagueList from './leagueList'
 import Leagues from './leagues'
 
 import SeasonList from './seasonList'
@@ -16,8 +16,8 @@ export class SportContentProvider extends ContentProvider {
   constructor(api, view) {
     super(api, view)
 
-    this.countryListModel = new CountryList()
-    this.leagueListModel = new LeagueList()
+    // this.countryListModel = new CountryList()
+    // this.leagueListModel = new LeagueList()
     this.seasonListModel = new SeasonList()
     this.matchesListModel = new MatchesList()
     this.supportedCountries = new Countries()
