@@ -150,10 +150,12 @@ export class SportView extends View {
   }
 
   createMatchItem(match) {
-    const { awayTeam, homeTeam, stats } = match
+    const { awayTeam, homeTeam, stats, matchId } = match
 
     const listItem = document.createElement('li')
+    listItem.addEventListener('click', this.handleMatchItemClick.bind(this))
     listItem.className = 'match__item'
+    listItem.dataset.id = matchId
     const html = `
       <header class="match__header">
       <div class='firstTeam'>
@@ -174,5 +176,11 @@ export class SportView extends View {
 
     listItem.innerHTML = html
     return listItem
+  }
+  async handleMatchItemClick(e) {
+    const matchItemElement = e.currentTarget
+    const matchItemId = matchItemElement.dataset.id
+
+    // const previewContent = this.
   }
 }
