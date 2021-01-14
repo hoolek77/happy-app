@@ -37,7 +37,7 @@ export class SportContentProvider extends ContentProvider {
       let { data: seasons = [] } = await this.api.fetch(
         'seasons',
         'league_id',
-        '168'
+        '237'
       )
 
       const seasonsArray = []
@@ -50,9 +50,9 @@ export class SportContentProvider extends ContentProvider {
         'season_id',
         '352',
         'date_from',
-        '2020-09-12',
+        '2020-09-11',
         'date_to',
-        '2020-09-13'
+        '2021-05-24'
       )
 
       const matchesArray = []
@@ -63,7 +63,7 @@ export class SportContentProvider extends ContentProvider {
         seasonsArray.map((item) => new Season(item))
       )
       this.matchesListModel.addMatch(
-        matchesArray.map((item) => new Match(item))
+        matchesArray.reverse().map((item) => new Match(item))
       )
 
       return this.view.render(

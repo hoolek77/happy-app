@@ -31,7 +31,7 @@ export class MatchContentProvider extends ContentProvider {
         matchesArray.push(match)
       }
       this.matchesListModel.addMatch(
-        matchesArray.map((item) => new Match(item))
+        matchesArray.reverse().map((item) => new Match(item))
       )
 
       return this.view.render(this.matchesListModel)
