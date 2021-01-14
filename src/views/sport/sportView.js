@@ -3,8 +3,10 @@ import View from '../../shared/view'
 import './sport.css'
 import { SPORT_API } from '../../environment'
 import { SeasonContentProvider } from './seasonContentProvider'
+import { MatchContentProvider } from './matchContentProvider'
 import { SeasonView } from './seasonView'
 import { SportAPI } from './index'
+import { MatchView } from './matchView'
 
 export class SportView extends View {
   render(countries, leagues, seasons, matches) {
@@ -14,7 +16,7 @@ export class SportView extends View {
     const selectSeasonElement = document.createElement('select')
     const showTeams = document.createElement('button')
     const ulElement = document.createElement('ul')
-    showTeams.addEventListener('click', this.handleMatchClick.bind(this))
+    showTeams.addEventListener('click', this.handleMatchClick.bind(this), false)
     showTeams.className = 'btnSport'
     showTeams.innerText = 'Show teams'
 
@@ -40,7 +42,6 @@ export class SportView extends View {
     ulElement.className = 'matches'
     matches.matches.forEach((matchItem) => {
       const listItem = this.createMatchItem(matchItem)
-      listItem.addEventListener('click', this.handleMatchClick.bind(this))
       ulElement.appendChild(listItem)
     })
 
@@ -69,6 +70,29 @@ export class SportView extends View {
     )
     setTimeout(async () => {
       let viewContent = await seasons.getContent()
+    })
+  }
+
+  handleMatchClick(e) {
+    const season = document.querySelector('.season').value
+    const seasonSelected = document.querySelector(
+      `option[data-season-name="${season}"]`
+    )
+
+    const seasonId = seasonSelected.dataset.seasonId
+    const startDate = seasonSelected.dataset.seasonStart
+    const endDate = seasonSelected.dataset.seasonEnd
+    console.log(seasonSelected)
+    const matchApi = new SportAPI(SPORT_API.API_BASE_URL, SPORT_API.API_KEY)
+    const match = new MatchContentProvider(
+      matchApi,
+      new MatchView(),
+      seasonId,
+      startDate,
+      endDate
+    )
+    setTimeout(async () => {
+      let viewContent = await match.getContent()
     })
   }
 
@@ -113,8 +137,10 @@ export class SportView extends View {
 
     const listItem = document.createElement('option')
     listItem.className = 'season__item'
-    listItem.dataset.id = seasonId
+    listItem.dataset.seasonId = seasonId
     listItem.dataset.seasonName = name
+    listItem.dataset.seasonStart = startDate
+    listItem.dataset.seasonEnd = endDate
 
     const html = `${name}`
 
@@ -148,9 +174,5 @@ export class SportView extends View {
 
     listItem.innerHTML = html
     return listItem
-  }
-
-  handleMatchClick(e) {
-    console.log('123')
   }
 }

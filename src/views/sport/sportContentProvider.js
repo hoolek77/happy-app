@@ -59,7 +59,6 @@ export class SportContentProvider extends ContentProvider {
       for (const match of Object.values(matches)) {
         matchesArray.push(match)
       }
-
       this.seasonListModel.addSeason(
         seasonsArray.map((item) => new Season(item))
       )

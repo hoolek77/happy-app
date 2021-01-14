@@ -25,10 +25,13 @@ export class SeasonView extends View {
 
     const listItem = document.createElement('option')
     listItem.className = 'season__item'
-    listItem.dataset.id = seasonId
+    listItem.dataset.seasonId = seasonId
     listItem.dataset.seasonName = name
+    listItem.dataset.seasonStart = startDate
+    listItem.dataset.seasonEnd = endDate
 
     const html = `${name}`
+
     listItem.innerHTML = html
 
     return listItem
