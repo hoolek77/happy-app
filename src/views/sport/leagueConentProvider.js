@@ -1,7 +1,7 @@
 import ContentProvider from '../../shared/contentProvider'
 
 import LeagueList from './leagueList'
-import League from './leagues'
+import League from './league'
 
 export class LeagueContentProvider extends ContentProvider {
   constructor(api, view, countryId) {

@@ -1,0 +1,12 @@
+[
+    {
+        "league_id": 237,
+        "country_id": 42,
+        "name": "Premier League"
+    },
+    {
+        "league_id": 238,
+        "country_id": 42,
+        "name": "Championship"
+    }
+]
