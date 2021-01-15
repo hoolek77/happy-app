@@ -53,16 +53,21 @@ export default class NewsContentProvider extends ContentProvider {
   async getContent() {
     this.searchText = null
     this.currentPage = 1
-    const news = await this._fetchNewsData(this.currentPage)
-    this.newsListModel.addNews(news)
 
-    return this.view.render(
-      news,
-      this.supportedCountries.countries,
-      this.supportedCategories,
-      this.selectedCountry,
-      this.selectedCategory
-    )
+    try {
+      const news = await this._fetchNewsData(this.currentPage)
+      this.newsListModel.addNews(news)
+
+      return this.view.render(
+        news,
+        this.supportedCountries.countries,
+        this.supportedCategories,
+        this.selectedCountry,
+        this.selectedCategory
+      )
+    } catch (err) {
+      return this.view.renderError('News data could not be fetched.')
+    }
   }
 
   getClickedNews(id) {
@@ -134,37 +139,32 @@ export default class NewsContentProvider extends ContentProvider {
   async _loadNews() {
     this.view.showSpinner()
 
-    const news = await this._fetchNewsData(this.currentPage)
-    this.newsListModel.addNews(news)
+    try {
+      const news = await this._fetchNewsData(this.currentPage)
+      this.newsListModel.addNews(news)
 
-    this.view.renderNewData(news)
+      this.view.renderNewData(news)
+    } catch (err) {}
+
     this.view.hideSpinner()
   }
 
   async _fetchNewsData(page) {
-    try {
-      let {
-        status = '',
-        totalResults = 0,
-        articles = [],
-      } = await this.api.fetch(
-        page,
-        this.selectedCountry,
-        this.selectedCategory,
-        this.searchText
-      )
+    let { status = '', totalResults = 0, articles = [] } = await this.api.fetch(
+      page,
+      this.selectedCountry,
+      this.selectedCategory,
+      this.searchText
+    )
 
-      if (status === 'ok') {
-        this.totalResults = totalResults
+    if (status === 'ok') {
+      this.totalResults = totalResults
 
-        if (page === 1) {
-          this.newsListModel.clear()
-        }
-
-        return articles.map((item, index) => new News(index, item))
+      if (page === 1) {
+        this.newsListModel.clear()
       }
-    } catch (err) {
-      console.error(err)
+
+      return articles.map((item, index) => new News(index, item))
     }
   }
 
