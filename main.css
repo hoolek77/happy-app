@@ -67,6 +67,18 @@ h1 {
   width: 120rem;
 }
 
+.error__container {
+  background-color: rgb(225, 131, 121);
+  border: 1px solid rgb(172, 57, 44);
+  border-radius: 6px;
+  max-width: 80%;
+  padding: 0 1rem;
+}
+
+.error__message {
+  color: rgb(80 24 18);
+}
+
 .header {
   padding-top: 2rem;
 }
