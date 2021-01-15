@@ -163,6 +163,7 @@ export class SportView extends View {
     listItem.addEventListener('click', this.handleMatchItemClick.bind(this))
     listItem.className = 'match__item'
     listItem.dataset.id = matchId
+    const score = stats.ft_score ? stats.ft_score : '0 - 0'
     const html = `
       <header class="match__header">
       <div class='firstTeam'>
@@ -172,7 +173,7 @@ export class SportView extends View {
         <div class='match__score'>
         VS
         <br>
-        ${stats.home_score} - ${stats.away_score}
+        ${score}
         </div>
         <div class ='secondTeam'>
         <img class="match__img" src="${awayTeam.logo}" alt="">

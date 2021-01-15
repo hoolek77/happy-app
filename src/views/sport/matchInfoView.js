@@ -25,7 +25,6 @@ export class MatchInfoView extends View {
       match_statistics,
     } = match
     if (match.status !== 'notstarted') {
-      console.log(match.status)
       const homeEvents = []
       const awayEvents = []
       let score = ''
@@ -49,7 +48,7 @@ export class MatchInfoView extends View {
       <span class"match__title">${home_team.name}</span>
     </div>
     <div class='match__score'>
-      ${score}
+      ${stats.ft_score}
     </div>
     <div class ='secondTeam'>
       <img class="match__img" src="${away_team.logo}" alt="">
