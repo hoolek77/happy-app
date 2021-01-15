@@ -2,6 +2,8 @@ import View from '../../shared/view'
 import CardPreview from '../../shared/cardPreview'
 
 import './sport.css'
+import '../../shared/form/style.css'
+import '../../shared/button/style.css'
 import { SPORT_API } from '../../environment'
 import { SeasonContentProvider } from './seasonContentProvider'
 import { MatchContentProvider } from './matchContentProvider'
@@ -27,23 +29,26 @@ export class SportView extends View {
       false
     )
     showTeams.className = 'btnSport'
-    showTeams.innerText = 'Show teams'
+    showTeams.innerText = 'Find matches'
 
     document.addEventListener('input', this.seasonsChange.bind(this), false)
 
     selectCountryElement.className = 'country'
+    selectCountryElement.classList.add('form__select')
     countries.countries.forEach((countryItem) => {
       const listItem = this.createCountryListItem(countryItem)
       selectCountryElement.appendChild(listItem)
     })
 
     selectLeagueElement.className = 'league'
+    selectLeagueElement.classList.add('form__select')
     leagues.leagues.forEach((countryItem) => {
       const listItem = this.createLeagueListItem(countryItem)
       selectLeagueElement.appendChild(listItem)
     })
 
     selectSeasonElement.className = 'season'
+    selectSeasonElement.classList.add('form__select')
     seasons.seasons.forEach((season) => {
       const seasonItem = this.createSeasonListItem(season)
       selectSeasonElement.appendChild(seasonItem)
@@ -64,7 +69,7 @@ export class SportView extends View {
   }
 
   seasonsChange(e) {
-    if (e.target.className !== 'league') return
+    if (e.target.className !== 'league form__select') return
     const name = e.target.value
     const selectedLeague = document.querySelector(
       `option[data-league-name="${name}"]`
