@@ -18,12 +18,12 @@
 
 .author {
   color: #fff;
-  height: 150px;
+  height: 170px;
   margin: 4rem 1rem;
   perspective: 1000px;
   position: relative;
   text-align: center;
-  width: 150px;
+  width: 170px;
 }
 
 .author__container {
@@ -67,7 +67,6 @@
   bottom: 50%;
   color: #fff;
   display: block;
-  /* opacity: 0; */
   padding: 1rem 2rem;
   position: absolute;
   transform: translateY(50%);
@@ -81,6 +80,4 @@
 
 .author:hover .author__position {
   bottom: -40px;
-  /* opacity: 1; */
-  /* transform: translateY(100%); */
 }
