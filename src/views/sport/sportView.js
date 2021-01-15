@@ -1,12 +1,17 @@
 import View from '../../shared/view'
+import CardPreview from '../../shared/cardPreview'
 
 import './sport.css'
 import { SPORT_API } from '../../environment'
 import { SeasonContentProvider } from './seasonContentProvider'
 import { MatchContentProvider } from './matchContentProvider'
+import { MatchInfoContentProvider } from './matchInfoContentProvider'
+import { MatchInfoView } from './matchInfoView'
 import { SeasonView } from './seasonView'
 import { SportAPI } from './index'
 import { MatchView } from './matchView'
+
+const sportApi = new SportAPI(SPORT_API.API_BASE_URL, SPORT_API.API_KEY)
 
 export class SportView extends View {
   render(countries, leagues, seasons, matches) {
@@ -16,7 +21,11 @@ export class SportView extends View {
     const selectSeasonElement = document.createElement('select')
     const showTeams = document.createElement('button')
     const ulElement = document.createElement('ul')
-    showTeams.addEventListener('click', this.handleMatchClick.bind(this), false)
+    showTeams.addEventListener(
+      'click',
+      this.handleButtonMatchClick.bind(this),
+      false
+    )
     showTeams.className = 'btnSport'
     showTeams.innerText = 'Show teams'
 
@@ -62,9 +71,8 @@ export class SportView extends View {
     )
 
     const selectedLeagueId = selectedLeague.dataset.id
-    const seasonApi = new SportAPI(SPORT_API.API_BASE_URL, SPORT_API.API_KEY)
     const seasons = new SeasonContentProvider(
-      seasonApi,
+      sportApi,
       new SeasonView(),
       selectedLeagueId
     )
@@ -73,7 +81,7 @@ export class SportView extends View {
     })
   }
 
-  handleMatchClick(e) {
+  handleButtonMatchClick(e) {
     const season = document.querySelector('.season').value
     const seasonSelected = document.querySelector(
       `option[data-season-name="${season}"]`
@@ -83,9 +91,8 @@ export class SportView extends View {
     const startDate = seasonSelected.dataset.seasonStart
     const endDate = seasonSelected.dataset.seasonEnd
     console.log(seasonSelected)
-    const matchApi = new SportAPI(SPORT_API.API_BASE_URL, SPORT_API.API_KEY)
     const match = new MatchContentProvider(
-      matchApi,
+      sportApi,
       new MatchView(),
       seasonId,
       startDate,
@@ -181,6 +188,18 @@ export class SportView extends View {
     const matchItemElement = e.currentTarget
     const matchItemId = matchItemElement.dataset.id
 
-    // const previewContent = this.
+    const match = new MatchInfoContentProvider(
+      sportApi,
+      new MatchInfoView(),
+      matchItemId
+    )
+    // const viewContent = info(matchItemId)
+    // const content = viewContent
+    // console.log(viewContent)
+    setTimeout(async () => {
+      let viewContent = await match.getContent()
+      const cardPreview = new CardPreview(matchItemElement, viewContent)
+      cardPreview.showCardPreview()
+    })
   }
 }

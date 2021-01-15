@@ -14,8 +14,8 @@ export class SportAPI extends API {
     filter3 = '',
     id3 = ''
   ) {
-    const sportUrl = `${this.baseUrl}${options}?`
-    const key = `apikey=${this.apiKey}`
+    const sportUrl = `${this.baseUrl}${options}`
+    const key = `?apikey=${this.apiKey}`
     const query = `&${filter}=${id}`
     const query2 = `&${filter2}=${id2}`
     const query3 = `&${filter3}=${id3}`

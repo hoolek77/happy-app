@@ -1,4 +1,5 @@
 import View from '../../shared/view'
+import CardPreview from '../../shared/cardPreview'
 
 import './sport.css'
 
@@ -9,6 +10,7 @@ export class MatchView extends View {
     matchesElement.innerHTML = ''
     matches.matches.forEach((matchItem) => {
       const listItem = this.createMatchItem(matchItem)
+      listItem.addEventListener('click', this.handleMatchItemClick.bind(this))
       matchesElement.appendChild(listItem)
     })
   }
@@ -38,5 +40,15 @@ export class MatchView extends View {
 
     listItem.innerHTML = html
     return listItem
+  }
+
+  async handleMatchItemClick(e) {
+    const matchItemElement = e.currentTarget
+    const matchItemId = matchItemElement.dataset.id
+
+    const previewContent = '123'
+
+    const cardPreview = new CardPreview(matchItemElement, previewContent)
+    cardPreview.showCardPreview()
   }
 }
