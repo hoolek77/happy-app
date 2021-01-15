@@ -193,9 +193,7 @@ export class SportView extends View {
       new MatchInfoView(),
       matchItemId
     )
-    // const viewContent = info(matchItemId)
-    // const content = viewContent
-    // console.log(viewContent)
+
     setTimeout(async () => {
       let viewContent = await match.getContent()
       const cardPreview = new CardPreview(matchItemElement, viewContent)

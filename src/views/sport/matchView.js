@@ -1,7 +1,14 @@
 import View from '../../shared/view'
 import CardPreview from '../../shared/cardPreview'
 
+import { SPORT_API } from '../../environment'
+import { SportAPI } from './index'
+import { MatchInfoContentProvider } from './matchInfoContentProvider'
+import { MatchInfoView } from './matchInfoView'
+
 import './sport.css'
+
+const sportApi = new SportAPI(SPORT_API.API_BASE_URL, SPORT_API.API_KEY)
 
 export class MatchView extends View {
   render(matches) {
@@ -16,10 +23,12 @@ export class MatchView extends View {
   }
 
   createMatchItem(match) {
-    const { awayTeam, homeTeam, stats } = match
+    const { awayTeam, homeTeam, stats, matchId } = match
 
     const listItem = document.createElement('li')
+    listItem.addEventListener('click', this.handleMatchItemClick.bind(this))
     listItem.className = 'match__item'
+    listItem.dataset.id = matchId
     const html = `
       <header class="match__header">
       <div class='firstTeam'>
@@ -46,9 +55,16 @@ export class MatchView extends View {
     const matchItemElement = e.currentTarget
     const matchItemId = matchItemElement.dataset.id
 
-    const previewContent = '123'
+    const match = new MatchInfoContentProvider(
+      sportApi,
+      new MatchInfoView(),
+      matchItemId
+    )
 
-    const cardPreview = new CardPreview(matchItemElement, previewContent)
-    cardPreview.showCardPreview()
+    setTimeout(async () => {
+      let viewContent = await match.getContent()
+      const cardPreview = new CardPreview(matchItemElement, viewContent)
+      cardPreview.showCardPreview()
+    })
   }
 }
