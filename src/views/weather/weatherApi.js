@@ -14,9 +14,14 @@ export class WeatherApi extends API {
       const response = await fetch(
         `${this.baseUrl}q=${query}&units=metric&appid=${this.apiKey}`
       )
-      const data = await response.json()
 
-      this.weatherContentProvider.displayResults(data)
+      if (response.ok) {
+        const data = await response.json()
+
+        this.weatherContentProvider.displayResults(data)
+      } else {
+        this.showError()
+      }
     } catch (err) {
       console.log(err)
     }
@@ -38,5 +43,18 @@ export class WeatherApi extends API {
     } else {
       console.log('geolocation not supported')
     }
+  }
+
+  showError() {
+    const errorPopUp = document.querySelector('.popup')
+    const closeBtn = document.querySelector('.close-btn')
+    const overlay = document.querySelector('.overlay')
+    errorPopUp.classList.add('active')
+    closeBtn.addEventListener('click', () => {
+      errorPopUp.classList.remove('active')
+    })
+    overlay.addEventListener('click', () => {
+      errorPopUp.classList.remove('active')
+    })
   }
 }

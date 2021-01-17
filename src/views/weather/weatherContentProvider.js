@@ -179,6 +179,14 @@ export class WeatherContentProvider extends ContentProvider {
     weatherApi.fetchLocation(weatherApi.baseUrl, weatherApi.apiKey)
 
     const html = `
+        <div class="popup">
+          <div class="overlay"></div>
+          <div class="content">
+            <div class="close-btn"">&times;</div>
+            <h1>An error occurred</h1>
+            <p>Check if you provided correct city name</p>
+          </div>
+        </div>
         <div class="container-weather">
           <div class="carousel-weather">
             <div class="slider-weather">
