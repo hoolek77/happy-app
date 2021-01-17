@@ -19,7 +19,7 @@
   <body>
     <div class="wrapper">
       <header class="header">
-        <a class="header__title" href="/">Happy App</a>
+        <a class="header__title" href="./">Happy App</a>
 
         <nav class="nav">
           <input type="checkbox" id="menu-toggle" class="nav__menu-toggle" />
@@ -38,12 +38,6 @@
             <li class="nav-list__item nav-list__item--weather">
               <a class="nav-list__link" href="./#/weather">Weather</a>
             </li>
-            <li class="nav-list__item nav-list__item--crypto">
-              <a class="nav-list__link" href="./#/crypto">Crypto</a>
-            </li>
-            <li class="nav-list__item nav-list__item--food">
-              <a class="nav-list__link" href="./#/food">Food</a>
-            </li>
           </ul>
         </nav>
       </header>
@@ -61,26 +55,60 @@
 
         <ul class="authors__list">
           <li class="author">
-            Piotr Dybowski<span class="author__position"
-              >Mentor<br />Client</span
-            >
+            <div class="author__container">
+              <div class="author__front">
+                <div class="author__content">Piotr Dybowski</div>
+              </div>
+              <div class="author__back">
+                <div class="author__content">
+                  <i class="fas fa-user-tie author__icon"></i>
+                  <span class="author__position">Mentor<br />Client</span>
+                </div>
+              </div>
+            </div>
           </li>
           <li class="author">
-            Natalia Cichońska<span class="author__position">Developer</span>
+            <div class="author__container">
+              <div class="author__front">
+                <div class="author__content">Szymon Kin</div>
+              </div>
+              <div class="author__back">
+                <div class="author__content">
+                  <i class="fas fa-user-secret author__icon"></i>
+                  <span class="author__position">Tech Lead<br />Developer</span>
+                </div>
+              </div>
+            </div>
           </li>
           <li class="author">
-            Jędrzej Matuszewski<span class="author__position">Developer</span>
+            <div class="author__container">
+              <div class="author__front">
+                <div class="author__content">Bartosz Białecki</div>
+              </div>
+              <div class="author__back">
+                <div class="author__content">
+                  <i class="fas fa-hiking author__icon"></i>
+                  <span class="author__position"
+                    >Product Owner<br />Developer</span
+                  >
+                </div>
+              </div>
+            </div>
           </li>
           <li class="author">
-            Szymon Kin<span class="author__position">Developer</span>
-          </li>
-          <li class="author">
-            Bartosz Białecki<span class="author__position"
-              >Product Owner<br />Developer</span
-            >
-          </li>
-          <li class="author">
-            Ireneusz Bednorz<span class="author__position">Developer</span>
+            <div class="author__container">
+              <div class="author__front">
+                <div class="author__content">Ireneusz Bednorz</div>
+              </div>
+              <div class="author__back">
+                <div class="author__content">
+                  <i class="fas fa-user-ninja author__icon"></i>
+                  <span class="author__position"
+                    >Dev Manager<br />Developer</span
+                  >
+                </div>
+              </div>
+            </div>
           </li>
         </ul>
       </footer>

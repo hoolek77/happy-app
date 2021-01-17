@@ -1,4 +1,8 @@
-import { getClosestParentElement } from '../../utils'
+import {
+  getClosestParentElement,
+  getHeightFromViewportHeight,
+  getWidthFromViewportWidth,
+} from '../../utils'
 
 import '../closeButton/style.css'
 import './style.css'
@@ -51,8 +55,7 @@ export default class CardPreview {
       '50%',
       '50%',
       this.previewWidth,
-      this.previewHeight,
-      true
+      this.previewHeight
     )
 
     this._addCloseButton()
@@ -90,8 +93,7 @@ export default class CardPreview {
       '50%',
       '50%',
       this.previewWidth,
-      this.previewHeight,
-      true
+      this.previewHeight
     )
   }
 
@@ -196,8 +198,7 @@ export default class CardPreview {
       `${this.cardInitialTopPosition}px`,
       `${this.cardInitialLeftPosition}px`,
       `${this.cardInitialWidth}px`,
-      `${this.cardInitialHeight}px`,
-      false
+      `${this.cardInitialHeight}px`
     )
 
     this.cardElement.style.removeProperty('opacity')
@@ -225,25 +226,50 @@ export default class CardPreview {
     leftPosition,
     width,
     height,
-    centering,
     duration = 350
   ) {
     return new Promise((resolve) => {
-      this.cardElementClone.animate(
-        [
-          {
-            top: topPosition,
-            left: leftPosition,
-            width,
-            height,
-            transform: centering ? 'translate(-50%, -50%)' : 'none',
-          },
-        ],
-        { duration, fill: 'forwards', ease: 'ease-in' }
-      )
+      requestAnimationFrame(() => {
+        this.cardElementClone.style.transition = `
+          width ${duration}ms ease-in-out,
+          height ${duration}ms ease-in-out,
+          left ${duration}ms ease-in-out,
+          top ${duration}ms ease-in-out
+        `
+
+        let top = topPosition
+        let left = leftPosition
+
+        if (topPosition === '50%') {
+          top = this._calculateTopCenterPosition(height)
+        }
+
+        if (leftPosition === '50%') {
+          left = this._calculateLeftCenterPosition(width)
+        }
+
+        requestAnimationFrame(() => {
+          this.cardElementClone.style.top = top
+          this.cardElementClone.style.left = left
+          this.cardElementClone.style.width = width
+          this.cardElementClone.style.height = height
+        })
+      })
 
       setTimeout(resolve, duration)
     })
+  }
+
+  _calculateTopCenterPosition(previewCardHeight) {
+    const height = getHeightFromViewportHeight(parseInt(previewCardHeight))
+
+    return `calc(50% - ${height / 2}px)`
+  }
+
+  _calculateLeftCenterPosition(previewCardWidth) {
+    const width = getWidthFromViewportWidth(parseInt(previewCardWidth))
+
+    return `calc(50% - ${width / 2}px)`
   }
 
   _hideOriginalCardContent(duration = 300) {

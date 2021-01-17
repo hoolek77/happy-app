@@ -24,7 +24,7 @@ export class WeatherContentProvider extends ContentProvider {
     })
 
     const temp = document.querySelector('.current-weather .temp')
-    temp.innerText = `${weather.list[0].main.temp} °C`
+    temp.innerText = `${weather.list[0].main.temp.toFixed(1)} °C`
 
     const weatherStatus = document.querySelector('.current-weather .weather')
     weatherStatus.innerText = weather.list[0].weather[0].main
@@ -102,17 +102,21 @@ export class WeatherContentProvider extends ContentProvider {
     const weatherPlusThree = document.querySelector('.weather-plus-three')
     weatherPlusThree.innerHTML = `
       <h2>In 3 hours:</h2>
-      <div class="weather-plus-temp">${weather.list[1].main.temp}°C</div>
+      <div class="weather-plus-temp">${weather.list[1].main.temp.toFixed(
+        1
+      )}°C</div>
     `
 
     const weatherPlusSix = document.querySelector('.weather-plus-six')
     weatherPlusSix.innerHTML = `
       <h2>In 6 hours:</h2>
-      <div class="weather-plus-temp">${weather.list[2].main.temp}°C</div>
+      <div class="weather-plus-temp">${weather.list[2].main.temp.toFixed(
+        1
+      )}°C</div>
     `
 
     const tempTomorrow = document.querySelector('.temp-tomorrow')
-    tempTomorrow.innerText = `${weather.list[7].main.temp} °C`
+    tempTomorrow.innerText = `${weather.list[7].main.temp.toFixed(1)} °C`
 
     const weatherStatusTomorrow = document.querySelector(
       '.current-weather .weather-tomorrow'
@@ -124,7 +128,9 @@ export class WeatherContentProvider extends ContentProvider {
     )
     weatherPlusThreeTomorrow.innerHTML = `
       <h2>In 3 hours:</h2>
-      <div class="weather-plus-temp">${weather.list[8].main.temp}°C</div>
+      <div class="weather-plus-temp">${weather.list[8].main.temp.toFixed(
+        1
+      )}°C</div>
     `
 
     const weatherPlusSixTomorrow = document.querySelector(
@@ -132,7 +138,9 @@ export class WeatherContentProvider extends ContentProvider {
     )
     weatherPlusSixTomorrow.innerHTML = `
       <h2>In 6 hours:</h2>
-      <div class="weather-plus-temp">${weather.list[9].main.temp}°C</div>
+      <div class="weather-plus-temp">${weather.list[9].main.temp.toFixed(
+        1
+      )}°C</div>
     `
   }
 

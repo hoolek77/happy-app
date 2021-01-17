@@ -4,6 +4,10 @@ export default class ContentProvider {
     this.view = view
   }
 
+  setup() {}
+
+  cleanUp() {}
+
   getTitle() {
     return ''
   }

@@ -5,6 +5,8 @@ export default class Navigator {
     this.router = router
     this.router.subscribeForEvent(this._onRouteChange.bind(this))
 
+    this.currentContentProvider = null
+
     this.headerElement = document.querySelector('.header')
     this.navElement = document.querySelector('.nav')
     this.navMenuButtonElement = this.navElement.querySelector(
@@ -46,6 +48,14 @@ export default class Navigator {
   }
 
   _onRouteChange(contentProvider, link) {
+    if (this.currentContentProvider) {
+      this.currentContentProvider.cleanUp()
+    }
+
+    this.currentContentProvider = contentProvider
+
+    contentProvider.setup()
+
     let isMovingNavigation = false
 
     this._clearActiveMenuLinks()
