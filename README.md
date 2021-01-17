@@ -1,13 +1,25 @@
 # Happy-App
 
-Available at [Happy-App](https://pdybowski.github.io/breaking-news/)
+Available at [Happy-App](https://pdybowski.github.io/happy-app/)
 
-[<img src="./src/content/img/readmeImg.png" />](https://pdybowski.github.io/breaking-news/)
+[<img src="./src/content/img/readmeImg.png" />](https://pdybowski.github.io/happy-app/)
+
+## News View
+
+[<img src="./src/content/img/newsView.png" />](https://pdybowski.github.io/happy-app/#/news/)
+
+## Sport View
+
+[<img src="./src/content/img/sportView.png" />](https://pdybowski.github.io/happy-app/#/sport/)
+
+## Weather View
+
+[<img src="./src/content/img/weatherView.png" />](https://pdybowski.github.io/happy-app/#/weather/)
 
 ## Running the application
 
 ```bash
-git clone https://github.com/pdybowski/breaking-news.git
+git clone https://github.com/pdybowski/happy-app.git
 npm install #to install all the dependencies
 npm start #to build and run the app on localhost
 ```
