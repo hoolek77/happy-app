@@ -1,21 +1,27 @@
 import ContentProvider from '../../shared/contentProvider'
 
-import CountryList from './countryList'
-import Country from './country'
+// import CountryList from './countryList'
+import Countries from './countries'
 
-import LeagueList from './leagueList'
-import League from './leagues'
+// import LeagueList from './leagueList'
+import Leagues from './leagues'
 
-import TeamsList from './teamsList'
-import Team from './team'
+import SeasonList from './seasonList'
+import Season from './season'
+
+import MatchesList from './matchesList'
+import Match from './match'
 
 export class SportContentProvider extends ContentProvider {
   constructor(api, view) {
     super(api, view)
 
-    this.countryListModel = new CountryList()
-    this.leagueListModel = new LeagueList()
-    this.teamsListModel = new TeamsList()
+    // this.countryListModel = new CountryList()
+    // this.leagueListModel = new LeagueList()
+    this.seasonListModel = new SeasonList()
+    this.matchesListModel = new MatchesList()
+    this.supportedCountries = new Countries()
+    this.supportedLeagues = new Leagues()
   }
 
   getTitle() {
@@ -27,58 +33,45 @@ export class SportContentProvider extends ContentProvider {
   }
 
   async getContent() {
-    // delete push push
     try {
-      let { data: countries = [] } = await this.api.fetch(
-        'countries',
-        'continent',
-        'Europe'
+      let { data: seasons = [] } = await this.api.fetch(
+        'seasons',
+        'league_id',
+        '237'
       )
 
-      const countriesArray = []
-      for (const country of Object.values(countries)) {
-        countriesArray.push(country)
+      const seasonsArray = []
+      for (const season of Object.values(seasons)) {
+        seasonsArray.push(season)
       }
 
-      let { data: teams = [] } = await this.api.fetch(
-        'teams',
-        'country_id',
-        '48'
+      let { data: matches = [] } = await this.api.fetch(
+        'matches',
+        'season_id',
+        '352',
+        'date_from',
+        '2020-09-11',
+        'date_to',
+        '2021-05-24'
       )
 
-      const teamsArray = []
-      for (const team of Object.values(teams)) {
-        if (teamsArray.length < 20) {
-          teamsArray.push(team)
-        }
+      const matchesArray = []
+      for (const match of Object.values(matches)) {
+        matchesArray.push(match)
       }
-
-      let { data: leagues = [] } = await this.api.fetch(
-        'leagues',
-        'country_id',
-        '48'
+      this.seasonListModel.addSeason(
+        seasonsArray.map((item) => new Season(item))
+      )
+      this.matchesListModel.addMatch(
+        matchesArray.reverse().map((item) => new Match(item))
       )
 
-      const leaguesArray = []
-      for (const league of Object.values(leagues)) {
-        leaguesArray.push(league)
-      }
-
-      if (countries) {
-        this.countryListModel.addCountry(
-          countriesArray.map((item) => new Country(item))
-        )
-        this.leagueListModel.addLeague(
-          leaguesArray.map((item) => new League(item))
-        )
-        this.teamsListModel.addTeam(teamsArray.map((item) => new Team(item)))
-
-        return this.view.render(
-          this.countryListModel,
-          this.leagueListModel,
-          this.teamsListModel
-        )
-      }
+      return this.view.render(
+        this.supportedCountries,
+        this.supportedLeagues,
+        this.seasonListModel,
+        this.matchesListModel
+      )
     } catch (err) {
       console.log(err)
     }

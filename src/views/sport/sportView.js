@@ -1,46 +1,119 @@
 import View from '../../shared/view'
+import CardPreview from '../../shared/cardPreview'
 
 import './sport.css'
+import '../../shared/form/style.css'
+import '../../shared/button/style.css'
+import { SPORT_API } from '../../environment'
+import { SeasonContentProvider } from './seasonContentProvider'
+import { MatchContentProvider } from './matchContentProvider'
+import { MatchInfoContentProvider } from './matchInfoContentProvider'
+import { MatchInfoView } from './matchInfoView'
+import { SeasonView } from './seasonView'
+import { SportAPI } from './index'
+import { MatchView } from './matchView'
+
+const sportApi = new SportAPI(SPORT_API.API_BASE_URL, SPORT_API.API_KEY)
 
 export class SportView extends View {
-  render(countries, leagues, teams) {
+  render(countries, leagues, seasons, matches) {
     const div = document.createElement('div')
     const selectCountryElement = document.createElement('select')
     const selectLeagueElement = document.createElement('select')
+    const selectSeasonElement = document.createElement('select')
+    const showTeams = document.createElement('button')
     const ulElement = document.createElement('ul')
+    showTeams.addEventListener(
+      'click',
+      this.handleButtonMatchClick.bind(this),
+      false
+    )
+    showTeams.className = 'btnSport'
+    showTeams.innerText = 'Find matches'
+
+    document.addEventListener('input', this.seasonsChange.bind(this), false)
 
     selectCountryElement.className = 'country'
+    selectCountryElement.classList.add('form__select')
     countries.countries.forEach((countryItem) => {
-      const listItem = this.createListItem(countryItem)
+      const listItem = this.createCountryListItem(countryItem)
       selectCountryElement.appendChild(listItem)
     })
 
     selectLeagueElement.className = 'league'
+    selectLeagueElement.classList.add('form__select')
     leagues.leagues.forEach((countryItem) => {
-      const listItem = this.createListItem(countryItem)
+      const listItem = this.createLeagueListItem(countryItem)
       selectLeagueElement.appendChild(listItem)
     })
 
-    ulElement.className = 'teams'
-
-    teams.teams.forEach((team) => {
-      const teamItem = this.createTeamItem(team)
-      ulElement.appendChild(teamItem)
+    selectSeasonElement.className = 'season'
+    selectSeasonElement.classList.add('form__select')
+    seasons.seasons.forEach((season) => {
+      const seasonItem = this.createSeasonListItem(season)
+      selectSeasonElement.appendChild(seasonItem)
+    })
+    ulElement.className = 'matches'
+    matches.matches.forEach((matchItem) => {
+      const listItem = this.createMatchItem(matchItem)
+      ulElement.appendChild(listItem)
     })
 
     div.appendChild(selectCountryElement)
     div.appendChild(selectLeagueElement)
+    div.appendChild(selectSeasonElement)
+    div.appendChild(showTeams)
     div.appendChild(ulElement)
 
-    return div.outerHTML
+    return div
   }
 
-  createListItem(countryData) {
+  seasonsChange(e) {
+    if (e.target.className !== 'league form__select') return
+    const name = e.target.value
+    const selectedLeague = document.querySelector(
+      `option[data-league-name="${name}"]`
+    )
+
+    const selectedLeagueId = selectedLeague.dataset.id
+    const seasons = new SeasonContentProvider(
+      sportApi,
+      new SeasonView(),
+      selectedLeagueId
+    )
+    setTimeout(async () => {
+      let viewContent = await seasons.getContent()
+    })
+  }
+
+  handleButtonMatchClick(e) {
+    const season = document.querySelector('.season').value
+    const seasonSelected = document.querySelector(
+      `option[data-season-name="${season}"]`
+    )
+
+    const seasonId = seasonSelected.dataset.seasonId
+    const startDate = seasonSelected.dataset.seasonStart
+    const endDate = seasonSelected.dataset.seasonEnd
+    const match = new MatchContentProvider(
+      sportApi,
+      new MatchView(),
+      seasonId,
+      startDate,
+      endDate
+    )
+    setTimeout(async () => {
+      let viewContent = await match.getContent()
+    })
+  }
+
+  createCountryListItem(countryData) {
     const { countryId, name, countryCode, continent } = countryData
 
     const listItem = document.createElement('option')
     listItem.className = 'country__item'
     listItem.dataset.id = countryId
+    listItem.dataset.countryName = name
 
     const html = `${name}`
 
@@ -48,21 +121,88 @@ export class SportView extends View {
 
     return listItem
   }
-  createTeamItem(team) {
-    const { logo = '', name } = team
+  createLeagueListItem(countryData) {
+    const { leagueId, name, countryCode, continent } = countryData
 
-    const listItem = document.createElement('li')
-    listItem.className = 'team__item'
+    const listItem = document.createElement('option')
+    listItem.className = 'league__item'
+    listItem.dataset.id = leagueId
+    listItem.dataset.leagueName = name
 
-    const html = `
-      <header class="team__header">
-        <img src="${logo}" alt="">
-        <h2 class"team__title">${name}</h2>
-      </header>
-    `
+    const html = `${name}`
 
     listItem.innerHTML = html
 
     return listItem
+  }
+  createSeasonListItem(seasonData) {
+    const {
+      seasonId,
+      name,
+      isCurrent,
+      countryId,
+      leagueId,
+      startDate,
+      endDate,
+    } = seasonData
+
+    const listItem = document.createElement('option')
+    listItem.className = 'season__item'
+    listItem.dataset.seasonId = seasonId
+    listItem.dataset.seasonName = name
+    listItem.dataset.seasonStart = startDate
+    listItem.dataset.seasonEnd = endDate
+
+    const html = `${name}`
+
+    listItem.innerHTML = html
+
+    return listItem
+  }
+
+  createMatchItem(match) {
+    const { awayTeam, homeTeam, stats, matchId } = match
+
+    const listItem = document.createElement('li')
+    listItem.addEventListener('click', this.handleMatchItemClick.bind(this))
+    listItem.className = 'match__item'
+    listItem.dataset.id = matchId
+    const score = stats.ft_score ? stats.ft_score : '0 - 0'
+    const html = `
+      <header class="match__header">
+      <div class='firstTeam'>
+        <img class="match__img" src="${homeTeam.logo}" alt="">
+        <span class"match__title">${homeTeam.name}</span>
+        </div>
+        <div class='match__score'>
+        VS
+        <br>
+        ${score}
+        </div>
+        <div class ='secondTeam'>
+        <img class="match__img" src="${awayTeam.logo}" alt="">
+        <span class"match__title">${awayTeam.name}</span>
+        </div>
+      </header>
+    `
+
+    listItem.innerHTML = html
+    return listItem
+  }
+  async handleMatchItemClick(e) {
+    const matchItemElement = e.currentTarget
+    const matchItemId = matchItemElement.dataset.id
+
+    const match = new MatchInfoContentProvider(
+      sportApi,
+      new MatchInfoView(),
+      matchItemId
+    )
+
+    setTimeout(async () => {
+      let viewContent = await match.getContent()
+      const cardPreview = new CardPreview(matchItemElement, viewContent)
+      cardPreview.showCardPreview()
+    })
   }
 }

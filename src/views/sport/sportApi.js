@@ -5,15 +5,20 @@ export class SportAPI extends API {
     super(baseUrl, apiKey)
   }
 
-  fetch(options, filter = '', id = '') {
-    const sportUrl = `${this.baseUrl}${options}?`
-    const key = `apikey=${this.apiKey}`
+  fetch(
+    options,
+    filter = '',
+    id = '',
+    filter2 = '',
+    id2 = '',
+    filter3 = '',
+    id3 = ''
+  ) {
+    const sportUrl = `${this.baseUrl}${options}`
+    const key = `?apikey=${this.apiKey}`
     const query = `&${filter}=${id}`
-
-    return super.fetch(`${sportUrl}${key}${query}`)
+    const query2 = `&${filter2}=${id2}`
+    const query3 = `&${filter3}=${id3}`
+    return super.fetch(`${sportUrl}${key}${query}${query2}${query3}`)
   }
 }
-
-// https://app.sportdataapi.com/api/v1/soccer/leagues?apikey&country_id=16
-// https://app.sportdataapi.com/api/v1/soccer/countries?apikey&continent=Europe
-// https://app.sportdataapi.com/api/v1/soccer/teams?apikey=&country_id=48

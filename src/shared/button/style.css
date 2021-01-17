@@ -1,0 +1,17 @@
+.btnSport {
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid #0b3c8c;
+  border-radius: 6px;
+  font-size: 1.6rem;
+  outline: none;
+  padding: 1rem;
+}
+
+.btnSport:hover {
+  background: rgba(51, 58, 58, 0.315);
+}
+
+.btnSport:active {
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
