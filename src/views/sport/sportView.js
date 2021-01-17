@@ -95,7 +95,6 @@ export class SportView extends View {
     const seasonId = seasonSelected.dataset.seasonId
     const startDate = seasonSelected.dataset.seasonStart
     const endDate = seasonSelected.dataset.seasonEnd
-    console.log(seasonSelected)
     const match = new MatchContentProvider(
       sportApi,
       new MatchView(),

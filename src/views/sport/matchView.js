@@ -12,7 +12,6 @@ const sportApi = new SportAPI(SPORT_API.API_BASE_URL, SPORT_API.API_KEY)
 
 export class MatchView extends View {
   render(matches) {
-    console.log(matches)
     const matchesElement = document.querySelector('.matches')
     matchesElement.innerHTML = ''
     matches.matches.forEach((matchItem) => {

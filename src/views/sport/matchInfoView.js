@@ -4,7 +4,6 @@ import './sport.css'
 
 export class MatchInfoView extends View {
   render(match) {
-    console.log(match)
     const wrap = document.createElement('div')
     const matchInfo = this.createMatchInfo(match)
     wrap.innerHTML = matchInfo
@@ -30,7 +29,6 @@ export class MatchInfoView extends View {
     if (match.status !== 'notstarted' && match_statistics) {
       aTeamStatistics.push(match_statistics[0])
       bTeamStatistics.push(match_statistics[1])
-      console.log(aTeamStatistics[0], bTeamStatistics[0])
       const html = `
     <header class="matchInfo__header">
     <div class='firstTeam'>
