@@ -672,35 +672,148 @@ h1 {
   }
 }
 
-.teams {
+.matches {
   display: grid;
   gap: 2.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: 1fr 1fr;
   list-style: none;
-  margin: 0;
+  margin-top: 20px;
 }
 
-.team__item {
+.matchInfo__detail {
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: 1fr 290px 1fr;
+  text-align: center;
+}
+
+.match__header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  height: 80px;
+}
+
+.matchInfo__header {
+  display: grid;
+  grid-template-columns: 250px 1fr 250px;
+  justify-items: center;
+  align-items: center;
+  height: 80px;
+  margin-top: 60px;
+}
+
+.matchStart {
+  font-size: 20px;
+}
+.matchStartDiv {
+  margin-bottom: 25px;
+}
+
+.firstTeam {
+  align-self: center;
+}
+
+.match__item {
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0px 35px 77px -17px rgba(0, 0, 0, 0.44);
   cursor: pointer;
   display: inline-block;
   overflow: hidden;
-  transition: all 0.3s ease-out;
+  position: relative;
+  transition: box-shadow 0.3s ease-out, transform 0.3s ease-out;
+  align-items: center;
 }
 
-.team__item:hover {
+.match__score {
+  text-align: center;
+}
+
+.match__item:hover {
   box-shadow: 0px 35px 77px -17px rgba(0, 0, 0, 0.64);
   transform: scale(1.05);
 }
 
-.team__header {
-  text-align: center;
+.match__img {
+  max-height: 30px;
+  max-width: 30px;
+  overflow: hidden;
+  margin: 0 auto;
 }
 
-.team__header img {
-  margin: 15px auto 0;
+.match__title {
+  padding: 0 2rem;
+  font-size: 11px !important;
+}
+
+.country,
+.league,
+.season,
+.btnSport {
+  margin: 0 10px;
+}
+
+.match__item.is-expanded {
+  cursor: inherit;
+  z-index: 200;
+  background: #444;
+  color: #fff;
+}
+
+.match__item.is-expanded:hover {
+  box-shadow: 0px 35px 77px -17px rgba(0, 0, 0, 0.44);
+  transform: none;
+}
+
+.match__item.is-expanded > * {
+  opacity: 0;
+  transform: translateY(-35px);
+}
+
+.match__item.is-expanded .match__header {
+  animation: slideDown 0.5s ease-out 0.3s forwards;
+}
+.match__item.is-expanded div {
+  animation: slideDown 0.5s ease-out 0.3s forwards;
+}
+.match__item.is-expanded .match__img {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+.match__item.is-expanded .match__score {
+  font-size: 48px;
+}
+
+.match__item.is-expanded .close-button-container {
+  animation: slideDown 0.5s ease-out 0.3s forwards;
+}
+
+@keyframes slideDown {
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.btnSport {
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid #0b3c8c;
+  border-radius: 6px;
+  font-size: 1.6rem;
+  outline: none;
+  padding: 1rem;
+}
+
+.btnSport:hover {
+  background: rgba(51, 58, 58, 0.315);
+}
+
+.btnSport:active {
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
 
 .container-weather {
