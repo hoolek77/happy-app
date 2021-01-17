@@ -24,23 +24,13 @@ export class MatchInfoView extends View {
       match_start,
       match_statistics,
     } = match
-    if (match.status !== 'notstarted') {
-      const homeEvents = []
-      const awayEvents = []
-      let score = ''
-      if (match_events) {
-        score = stats.ft_score
-        match_events.forEach((element) => {
-          if (element.team_id === home_team.team_id) {
-            homeEvents.push(`${element.minute} - ${element.type}`)
-          } else {
-            awayEvents.push(`${element.minute} - ${element.type}`)
-          }
-        })
-      } else {
-        score = '0-0'
-      }
+    const aTeamStatistics = []
+    const bTeamStatistics = []
 
+    if (match.status !== 'notstarted' && match_statistics) {
+      aTeamStatistics.push(match_statistics[0])
+      bTeamStatistics.push(match_statistics[1])
+      console.log(aTeamStatistics[0], bTeamStatistics[0])
       const html = `
     <header class="matchInfo__header">
     <div class='firstTeam'>
@@ -57,27 +47,57 @@ export class MatchInfoView extends View {
     <div></div>
     <div class="matchInfo__detail">
         <div></div>      
-        <div class='matchStartDiv'><span class='matchStart'>${match_start}</span></div>
+        <div class='matchStartDiv'><span class='matchStart'>${
+          match_start || 'no data'
+        }</span></div>
         <div></div>
-        <div>${match_statistics[0].possessionpercent}</div>
+        <div>${aTeamStatistics[0].possessionpercent || 'no data'}</div>
         <div>Possession</div>
-        <div>${match_statistics[1].possessionpercent}</div>
-        <div>${match_statistics[0].shots_total}</div>
+        <div>${bTeamStatistics[0].possessionpercent || 'no data'}</div>
+        <div>${aTeamStatistics[0].shots_total || 'no data'}</div>
         <div>Shots</div>
-        <div>${match_statistics[1].shots_total}</div>
-        <div>${match_statistics[0].shots_on_target}</div>
+        <div>${bTeamStatistics[0].shots_total || 'no data'}</div>
+        <div>${aTeamStatistics[0].shots_on_target || 'no data'}</div>
         <div>Shots on Target</div>
-        <div>${match_statistics[1].shots_on_target}</div>
-        <div>${match_statistics[0].corners}</div>
+        <div>${bTeamStatistics[0].shots_on_target || 'no data'}</div>
+        <div>${aTeamStatistics[0].corners || 'no data'}</div>
         <div>Corners</div>
-        <div>${match_statistics[1].corners}</div>
-        <div>${match_statistics[0].fouls}</div>
+        <div>${bTeamStatistics[0].corners || 'no data'}</div>
+        <div>${aTeamStatistics[0].fouls || 'no data'}</div>
         <div>Fouls</div>
-        <div>${match_statistics[1].fouls}</div>
+        <div>${bTeamStatistics[0].fouls || 'no data'}</div>
     </div>
     <div></div>
     </header>
     `
+      return html
+    }
+    if (match.status !== 'notstarted' && match.status && !match_statistics) {
+      const html = `
+      <header class="matchInfo__header">
+      <div class='firstTeam'>
+        <img class="match__img" src="${home_team.logo}" alt="">
+        <span class"match__title">${home_team.name}</span>
+      </div>
+      <div class='match__score'>
+      ${stats.ft_score}
+      </div>
+      <div class ='secondTeam'>
+        <img class="match__img" src="${away_team.logo}" alt="">
+        <span class"match__title">${away_team.name}</span>
+      </div>
+      <div></div>
+      <div class="matchInfo__detail">
+      <div></div>      
+      <div class='matchStartDiv'>Started: <br><span class='matchStart'>${
+        match_start || '0 - 0'
+      }</span></div>
+      <div></div>
+      <div></div>      
+      <div><h1>No data</h1></div>
+      <div></div>
+      </div>
+      `
       return html
     } else {
       const html = `
