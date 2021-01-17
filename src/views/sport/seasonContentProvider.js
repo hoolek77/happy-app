@@ -23,7 +23,7 @@ export class SeasonContentProvider extends ContentProvider {
       for (const season of Object.values(seasons)) {
         seasonsArray.push(season)
       }
-      seasonsArray.unshift({ name: 'Wybierz' })
+      seasonsArray.unshift({ name: 'Choose' })
 
       if (seasons) {
         this.seasonListModel.addSeason(
