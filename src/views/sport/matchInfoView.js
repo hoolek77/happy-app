@@ -1,5 +1,4 @@
 import View from '../../shared/view'
-
 import './sport.css'
 
 const errorContainerClassName = 'error__container'

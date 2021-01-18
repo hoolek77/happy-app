@@ -1,14 +1,8 @@
 import ContentProvider from '../../shared/contentProvider'
-
-// import CountryList from './countryList'
 import Countries from './countries'
-
-// import LeagueList from './leagueList'
 import Leagues from './leagues'
-
 import SeasonList from './seasonList'
 import Season from './season'
-
 import MatchesList from './matchesList'
 import Match from './match'
 

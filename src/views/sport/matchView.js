@@ -1,11 +1,9 @@
 import View from '../../shared/view'
 import CardPreview from '../../shared/cardPreview'
-
 import { SPORT_API } from '../../environment'
 import { SportAPI } from './index'
 import { MatchInfoContentProvider } from './matchInfoContentProvider'
 import { MatchInfoView } from './matchInfoView'
-
 import './sport.css'
 
 const errorContainerClassName = 'error__container'
