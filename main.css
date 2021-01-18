@@ -693,6 +693,7 @@ h1 {
   justify-items: center;
   align-items: center;
   height: 80px;
+  text-align: center;
 }
 
 .matchInfo__header {
