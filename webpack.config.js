@@ -57,7 +57,7 @@ module.exports = {
     }),
 
     new HtmlWebpackPlugin({
-      title: 'Breaking News 2.0',
+      title: 'Happy App',
       template: path.resolve(__dirname, './src/index.html'),
       inject: true,
       filename: './index.html',
