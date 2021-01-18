@@ -2,6 +2,9 @@ import View from '../../shared/view'
 
 import './sport.css'
 
+const errorContainerClassName = 'error__container'
+const errorMessageClassName = 'error__message'
+
 export class SeasonView extends View {
   render(seasons) {
     const selectSeasonsElement = document.querySelector('.season')
@@ -35,5 +38,18 @@ export class SeasonView extends View {
     listItem.innerHTML = html
 
     return listItem
+  }
+
+  renderError(errorMessage) {
+    const wrapper = document.createElement('div')
+    wrapper.className = errorContainerClassName
+
+    const pElement = document.createElement('p')
+    pElement.className = errorMessageClassName
+    pElement.textContent = errorMessage
+
+    wrapper.appendChild(pElement)
+
+    return wrapper
   }
 }

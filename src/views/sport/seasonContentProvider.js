@@ -33,7 +33,7 @@ export class SeasonContentProvider extends ContentProvider {
         return this.view.render(this.seasonListModel)
       }
     } catch (err) {
-      console.log(err)
+      return this.view.renderError('Sport data could not be fetched.')
     }
 
     return ''

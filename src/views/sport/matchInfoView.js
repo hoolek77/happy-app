@@ -2,6 +2,9 @@ import View from '../../shared/view'
 
 import './sport.css'
 
+const errorContainerClassName = 'error__container'
+const errorMessageClassName = 'error__message'
+
 export class MatchInfoView extends View {
   render(match) {
     const wrap = document.createElement('div')
@@ -120,5 +123,18 @@ export class MatchInfoView extends View {
       `
       return html
     }
+  }
+
+  renderError(errorMessage) {
+    const wrapper = document.createElement('div')
+    wrapper.className = errorContainerClassName
+
+    const pElement = document.createElement('p')
+    pElement.className = errorMessageClassName
+    pElement.textContent = errorMessage
+
+    wrapper.appendChild(pElement)
+
+    return wrapper
   }
 }

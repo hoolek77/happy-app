@@ -36,7 +36,7 @@ export class MatchContentProvider extends ContentProvider {
 
       return this.view.render(this.matchesListModel)
     } catch (err) {
-      console.log(err)
+      return this.view.renderError('Sport data could not be fetched.')
     }
 
     return ''

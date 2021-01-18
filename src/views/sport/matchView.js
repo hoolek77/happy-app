@@ -8,6 +8,9 @@ import { MatchInfoView } from './matchInfoView'
 
 import './sport.css'
 
+const errorContainerClassName = 'error__container'
+const errorMessageClassName = 'error__message'
+
 const sportApi = new SportAPI(SPORT_API.API_BASE_URL, SPORT_API.API_KEY)
 
 export class MatchView extends View {
@@ -65,5 +68,18 @@ export class MatchView extends View {
       const cardPreview = new CardPreview(matchItemElement, viewContent)
       cardPreview.showCardPreview()
     })
+  }
+
+  renderError(errorMessage) {
+    const wrapper = document.createElement('div')
+    wrapper.className = errorContainerClassName
+
+    const pElement = document.createElement('p')
+    pElement.className = errorMessageClassName
+    pElement.textContent = errorMessage
+
+    wrapper.appendChild(pElement)
+
+    return wrapper
   }
 }

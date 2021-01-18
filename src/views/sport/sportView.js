@@ -13,6 +13,9 @@ import { SeasonView } from './seasonView'
 import { SportAPI } from './index'
 import { MatchView } from './matchView'
 
+const errorContainerClassName = 'error__container'
+const errorMessageClassName = 'error__message'
+
 const sportApi = new SportAPI(SPORT_API.API_BASE_URL, SPORT_API.API_KEY)
 
 export class SportView extends View {
@@ -158,6 +161,19 @@ export class SportView extends View {
     listItem.innerHTML = html
 
     return listItem
+  }
+
+  renderError(errorMessage) {
+    const wrapper = document.createElement('div')
+    wrapper.className = errorContainerClassName
+
+    const pElement = document.createElement('p')
+    pElement.className = errorMessageClassName
+    pElement.textContent = errorMessage
+
+    wrapper.appendChild(pElement)
+
+    return wrapper
   }
 
   createMatchItem(match) {

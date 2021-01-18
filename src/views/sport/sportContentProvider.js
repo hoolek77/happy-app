@@ -15,9 +15,6 @@ import Match from './match'
 export class SportContentProvider extends ContentProvider {
   constructor(api, view) {
     super(api, view)
-
-    // this.countryListModel = new CountryList()
-    // this.leagueListModel = new LeagueList()
     this.seasonListModel = new SeasonList()
     this.matchesListModel = new MatchesList()
     this.supportedCountries = new Countries()
@@ -73,7 +70,7 @@ export class SportContentProvider extends ContentProvider {
         this.matchesListModel
       )
     } catch (err) {
-      console.log(err)
+      return this.view.renderError('Sport data could not be fetched.')
     }
 
     return ''
