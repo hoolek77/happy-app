@@ -710,6 +710,7 @@ h1 {
 }
 .matchStartDiv {
   margin-bottom: 25px;
+  margin-top: 20px;
 }
 
 .firstTeam {
@@ -796,6 +797,60 @@ h1 {
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .matches {
+    grid-template-columns: 1fr;
+  }
+  .matchInfo__header {
+    grid-template-columns: 1fr 150px 1fr;
+  }
+  .match__item,
+  .is-expanded {
+    text-align: center;
+  }
+}
+
+@media (max-width: 540px) {
+  .form__select,
+  .form__input {
+    padding: 0.4rem;
+  }
+
+  .btnSport {
+    padding: 0.4rem !important;
+    margin: 10px auto;
+  }
+}
+@media (max-width: 425px) {
+  .matches {
+    grid-template-columns: 1fr;
+  }
+
+  .matchInfo__header {
+    grid-template-columns: 100px 100px 100px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .match__item.is-expanded .match__score {
+    font-size: 26px;
+  }
+
+  .btnSport {
+    display: block;
+  }
+}
+@media (max-width: 375px) {
+  .btnSport {
+    display: inline-block;
+  }
+
+  .matchInfo__detail {
+    grid-template-columns: 1fr 200px 1fr;
+    gap: 0.5rem;
   }
 }
 
