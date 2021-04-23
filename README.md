@@ -1,20 +1,20 @@
 # Happy-App
 
-Available at [Happy-App](https://pdybowski.github.io/happy-app/)
+Available at [Happy-App](https://hoolek77.github.io/happy-app/)
 
-[<img src="./src/content/img/readmeImg.png" />](https://pdybowski.github.io/happy-app/)
+[<img src="./src/content/img/readmeImg.png" />](https://hoolek77.github.io/happy-app/)
 
 ## News View
 
-[<img src="./src/content/img/newsView.png" />](https://pdybowski.github.io/happy-app/#/news/)
+[<img src="./src/content/img/newsView.png" />](https://hoolek77.github.io/happy-app/#/news/)
 
 ## Sport View
 
-[<img src="./src/content/img/sportView.png" />](https://pdybowski.github.io/happy-app/#/sport/)
+[<img src="./src/content/img/sportView.png" />](https://hoolek77.github.io/happy-app/#/sport/)
 
 ## Weather View
 
-[<img src="./src/content/img/weatherView.png" />](https://pdybowski.github.io/happy-app/#/weather/)
+[<img src="./src/content/img/weatherView.png" />](https://hoolek77.github.io/happy-app/#/weather/)
 
 ## Running the application
 
